@@ -1,4 +1,4 @@
-disease-container { 
+.disease-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,10 +14,11 @@ disease-container {
   justify-content: space-between;
   font-size: 38px;
   color: #4096ff;
-  width: 100%;
+  width: 110%;
+  height: 170px;
   position: absolute;
   margin-right: 20px;
-  top: 10px;
+
 }
 
 .disease-container .header .back-button {
@@ -25,8 +26,8 @@ disease-container {
   border: none;
   font-size: 24px; 
   color: #4096ff;
-  margin-left: 5px; 
-  margin-top: 34px;
+  margin-right: 13px; 
+  margin-top: 45px;
   cursor: pointer;
 }
 
@@ -46,7 +47,7 @@ disease-container {
   height: 1px;
   background-color: #4096ff;
   margin: 2px 0;
-  margin-bottom: 28px;
+  margin-bottom: 0px;
 }
 
 .disease-container .option-container {
@@ -76,7 +77,6 @@ disease-container {
   height: 48px;
   margin-bottom: 40px; 
 }
-
 
 .disease-container .option-container .option .camera-icon {
   background: url('../assets/camera.png') no-repeat center center;
@@ -108,4 +108,3 @@ disease-container {
   color: #000000;
   margin: 6px 0 0; 
 }
-
