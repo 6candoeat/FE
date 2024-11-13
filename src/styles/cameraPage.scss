@@ -1,0 +1,96 @@
+.camera-container { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    padding: 1px;
+}
+  
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 38px;
+    color: #4096ff;
+    width: 100%;
+    position: absolute;
+    top: 10px;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #4096ff;
+    margin-top: 34px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+  
+.title {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+    font-weight: bold;
+    font-size: 48px;
+    margin-top: 34px;
+    margin-left: 14px;
+}
+  
+.divider {
+    width: 100%;
+    border: 0;
+    height: 1px;
+    background-color: #4096ff;
+    margin: 10px 0;
+    margin-bottom: 28px;
+}
+
+.video-container, .captured-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px;
+    height: 800px;
+    max-width: 360px;
+    margin-top: 205.2px; /* Increased margin to push content down */
+}
+
+.camera-view {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: 4px solid #4096ff;
+}
+
+
+.capture-button, .recapture-button {
+    margin-top: 10px;
+    width: 200px;
+    padding: 15px 0;
+    font-size: 30px;
+    color: #ffffff;
+    background-color: #4096ff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.captured-photo img {
+    width: 100%;
+    height: auto;
+    border: 4px solid #4096ff;
+    border-radius: 8px;
+}
+
+.bottom-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px;
+    height: 110px;
+    margin-bottom: 90px;
+    max-width: 360px;
+}
