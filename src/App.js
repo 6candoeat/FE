@@ -6,6 +6,7 @@ import RegistrationTypeSelect from "./pages/RegistrationTypeSelect";
 import Mypage from "./pages/Mypage";
 import Menues from "./pages/Menues";
 import CameraPage from "./pages/CameraPage";
+import MenueDetail from "./pages/MenueDetail";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/menue" element={<Menues />} />
         <Route path="/camera" element={<CameraPage />} />
+        <Route path="/menu-detail/:id" element={<MenueDetail />} />
       </Routes>
     </Router>
   );
