@@ -1,0 +1,109 @@
+.disease-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  padding: 1px;
+}
+
+.disease-container .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 38px;
+  color: #4096ff;
+  width: 100%;
+  position: absolute;
+  margin-right: 20px;
+  top: 10px;
+}
+
+.disease-container .header .back-button {
+  background: none;
+  border: none;
+  font-size: 24px; 
+  color: #4096ff;
+  margin-left: 5px; 
+  margin-top: 34px;
+  cursor: pointer;
+}
+
+.disease-container .header .title {
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+  font-weight: bold;
+  font-size: 48px;
+  margin-top: 34px;
+  margin-left: 30px;
+}
+
+.disease-container .divider {
+  width: 100%;
+  border: 0;
+  height: 1px;
+  background-color: #4096ff;
+  margin: 2px 0;
+  margin-bottom: 28px;
+}
+
+.disease-container .option-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px; 
+  width: 100%;
+  max-width: 320px;
+  margin-top: 20px;
+  background-color: white; 
+}
+
+.disease-container .option-container .option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #4096ff;
+  border-radius: 8px;
+  padding: 16px; 
+  text-align: center;
+  cursor: pointer; 
+  height: 190px;
+}
+
+.disease-container .option-container .option .icon {
+  width: 48px; 
+  height: 48px;
+  margin-bottom: 40px; 
+}
+
+.disease-container .option-container .option .camera-icon {
+  background: url('../assets/camera.png') no-repeat center center;
+  background-size: contain;
+}
+
+.disease-container .option-container .option .pencil-icon {
+  background: url('../assets/pencil.png') no-repeat center center;
+  background-size: contain;
+}
+
+
+.disease-container .option-container .option .camera-icon,
+.disease-container .option-container .option .pencil-icon {
+  width: 85px;
+  height: 85px; 
+  margin-bottom: 20px; 
+}
+
+.disease-container .option-container .option .option-title {
+  font-size: 28px; 
+  font-weight: bold;
+  margin: 0;
+}
+
+.disease-container .option-container .option .option-description {
+  font-size: 16px; 
+  font-weight: semi-bold;
+  color: #000000;
+  margin: 6px 0 0; 
+}
