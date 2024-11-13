@@ -1,0 +1,32 @@
+.logo {
+  width: 90%;
+  margin-top: 220px;
+  
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+/* 화면 고정 */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; // 스크롤 방지
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0; // 배경 색상 설정
+}
+
+@media screen and (max-width: 360px) {
+  h1 {
+    font-size: 20px; // 작은 화면에서 제목 크기 조정
+  }
+}
