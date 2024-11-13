@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/menues.scss";
 import seafoodSoupImg from "../assets/seafoodSoupImg.png";
 import soyBeanSoupImg from "../assets/soyBeanSoupImg.png";
@@ -8,6 +9,8 @@ import BackButton from "../components/button/BackButton";
 import AppContainer from "../components/AppContainer";
 
 const Menues = () => {
+  const navigate = useNavigate();
+
   const menuItems = [
     {
       id: 1,
@@ -27,13 +30,17 @@ const Menues = () => {
     },
     {
       id: 3,
-      riskLevel: "위험",
+      riskLevel: "보통",
       name: "돼지고기 김치찌개",
       price1: "9000원",
       price2: "24000원",
       img: kimchiStewImg,
     },
   ];
+
+  const handleMenuClick = (item) => {
+    navigate(`/menu-detail/${item.id}`, { state: item }); // 선택된 메뉴 데이터를 state로 전달
+  };
 
   return (
     <AppContainer>
@@ -48,9 +55,15 @@ const Menues = () => {
 
         <div className="menu-list">
           {menuItems.map((item) => (
-            <div key={item.id} className="menu-item">
+            <div key={item.id} className="menu-item" onClick={() => handleMenuClick(item)}>
               <div className="menu-details">
-                <span className={`risk-level ${item.riskLevel === "위험" ? "danger" : "safe"}`}>{item.riskLevel}</span>
+                <span
+                  className={`risk-level ${
+                    item.riskLevel === "위험" ? "danger" : item.riskLevel === "보통" ? "normal" : "safe"
+                  }`}
+                >
+                  {item.riskLevel}
+                </span>
                 <h2 className="menu-name">{item.name}</h2>
                 <p className="menu-price">1인분 : {item.price1}</p>
                 <p className="menu-price">2~3인분 : {item.price2}</p>
@@ -59,7 +72,8 @@ const Menues = () => {
             </div>
           ))}
         </div>
-        <Footer></Footer>
+
+        <Footer />
       </div>
     </AppContainer>
   );
