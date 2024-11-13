@@ -1,38 +1,46 @@
-.App {
-  text-align: center;
+/* 기본 색상 설정 */
+:root {
+  --primary-color: #ff6b6b; /* 기본 색상 변수 */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* 화면 고정 및 기본 스타일 설정 */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* 스크롤 방지 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0; /* 배경 색상 설정 */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* 전체 앱 컨테이너 */
+.app-container {
+  width: 360px;
+  height: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  overflow: hidden; /* 스크롤 방지 */
+  border: 1px solid #ddd; /* 앱처럼 보이게 테두리 추가 */
+  background-color: white;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.main-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* 작은 화면에서 제목 크기 조정 */
+@media screen and (max-width: 360px) {
+  h1 {
+    font-size: 20px; /* 작은 화면에서 제목 크기 조정 */
   }
 }
