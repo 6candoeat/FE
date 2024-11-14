@@ -42,9 +42,11 @@ const MenueDetail = () => {
   return (
     <AppContainer>
       <div className="menue-detail-page">
-        <header className="detail-header">
-          <BackButton onBackClick={() => window.history.back()} />
-          <h1 className="title">{menuItem.name}</h1> {/* 선택된 메뉴의 이름 표시 */}
+        <header className="header">
+          <div className="header-content">
+            <BackButton onBackClick={() => window.history.back()} />
+            <h1 className="title">{menuItem.name}</h1>
+          </div>
           <hr className="divider" />
         </header>
         <div className="risk-level-container" style={{ backgroundColor: color }}>
@@ -57,7 +59,7 @@ const MenueDetail = () => {
         <button className="order-button" onClick={handleOrderClick}>
           주문하기
         </button>
-        <MenueOption isOpen={isOptionOpen} onClose={handleClose} />{" "}
+        <MenueOption isOpen={isOptionOpen} onClose={handleClose} />
       </div>
     </AppContainer>
   );

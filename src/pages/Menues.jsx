@@ -39,7 +39,7 @@ const Menues = () => {
   ];
 
   const handleMenuClick = (item) => {
-    navigate(`/menu-detail/${item.id}`, { state: item }); // 선택된 메뉴 데이터를 state로 전달
+    navigate(`/menu/${item.id}`, { state: item }); // 선택된 메뉴 데이터를 state로 전달
   };
 
   return (
