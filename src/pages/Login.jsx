@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import '../styles/login.scss'; 
 import '../App.css';
 import AppContainer from '../components/AppContainer';
+import InputField from '../components/InputField.jsx'; 
+
+
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    id: '',
     password: '',
     autoLogin: false,
     saveId: false
@@ -21,7 +24,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic here
     console.log('Form Data Submitted:', formData);
   };
 
@@ -29,28 +31,24 @@ const Login = () => {
     <AppContainer>
       <h1 className="app-title">닥터푸드</h1>
       <form className="login-form" onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label htmlFor="username">아이디</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="아이디를 입력해주세요."
-            value={formData.username}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">비밀번호</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="비밀번호를 입력해주세요."
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
+        <InputField
+          labelText="아이디"
+          id="id"
+          name="id"
+          type="text"
+          placeholder="아이디를 입력해주세요."
+          value={formData.id}
+          onChange={handleChange}
+        />
+        <InputField
+          labelText="비밀번호"
+          id="password"
+          name="password"
+          type="password"
+          placeholder="비밀번호를 입력해주세요."
+          value={formData.password}
+          onChange={handleChange}
+        />
         <div className="options">
           <label>
             <input
