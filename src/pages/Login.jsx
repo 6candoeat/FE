@@ -1,31 +1,12 @@
-import React, { useState } from 'react';
-import '../styles/login.scss'; 
+import React from 'react';
+import useLogin from '../hooks/useLogin';
+import '../styles/login.scss';
 import '../App.css';
 import AppContainer from '../components/AppContainer';
-import InputField from '../components/InputField.jsx'; 
-
-
+import InputField from '../components/InputField';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    id: '',
-    password: '',
-    autoLogin: false,
-    saveId: false
-  });
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Data Submitted:', formData);
-  };
+  const { formData, errorMessage, handleChange, handleSubmit } = useLogin();
 
   return (
     <AppContainer>
@@ -69,10 +50,12 @@ const Login = () => {
             아이디 저장
           </label>
         </div>
+       
         <div className="links">
           <button type="button" className="link-button">아이디 찾기</button> | 
           <button type="button" className="link-button">비밀번호 찾기</button>
         </div>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button type="submit" className="login-button">로그인</button>
         <button type="button" className="signup-button">회원가입</button>
       </form>

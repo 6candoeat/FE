@@ -47,10 +47,8 @@
 
 .options {
   display: flex;
-  flex-direction: row; // 가로 정렬 설정
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px; // 요소 간격 설정
+  align-items: flex-end;
+  gap: 10px; // 요소 간격 설정
 }
 
 .options div {
