@@ -16,6 +16,7 @@ function CameraPage() {
   const takePhoto = () => {
     const capturedPhoto = cameraRef.current.takePhoto();
     setPhoto(capturedPhoto);
+    console.log("Captured photo URL:", capturedPhoto);
   };
 
   const handleBackClick = () => {

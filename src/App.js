@@ -28,7 +28,7 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/menue" element={<Menues />} />
         <Route path="/camera" element={<CameraPage />} />
-        <Route path="/menu-detail/:id" element={<MenueDetail />} />
+        <Route path="/menu/:id" element={<MenueDetail />} />
         <Route path="/menumain" element={<MenuMain />}/>
         <Route path="/menumain/korea" element={<KoreaStore />}/>
         <Route path="/menumain/japan" element={<JapanStore />}/>
