@@ -4,6 +4,7 @@ import '../styles/login.scss';
 import '../App.css';
 import AppContainer from '../components/AppContainer';
 import InputField from '../components/InputField';
+import CheckBox from '../components/CheckBox';
 
 const Login = () => {
   const { formData, errorMessage, handleChange, handleSubmit } = useLogin();
@@ -31,26 +32,27 @@ const Login = () => {
           onChange={handleChange}
         />
         <div className="options">
-          <label>
-            <input
-              type="checkbox"
-              name="autoLogin"
-              checked={formData.autoLogin}
-              onChange={handleChange}
-            />
-            자동 로그인
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="saveId"
-              checked={formData.saveId}
-              onChange={handleChange}
-            />
-            아이디 저장
-          </label>
-        </div>
-       
+  <div className="option-group">
+    <div className="option-label-auto">
+    <CheckBox
+      label="자동 로그인"
+      name="autoLogin"
+      checked={formData.autoLogin}
+      onChange={handleChange}
+    />
+    </div>
+    <div className="option-label-id-save">
+    <CheckBox
+      label="아이디 저장"
+      name="saveId"
+      checked={formData.saveId}
+      onChange={handleChange}
+    />
+    </div>
+  </div>
+</div>
+
+        
         <div className="links">
           <button type="button" className="link-button">아이디 찾기</button> | 
           <button type="button" className="link-button">비밀번호 찾기</button>
@@ -64,3 +66,4 @@ const Login = () => {
 };
 
 export default Login;
+

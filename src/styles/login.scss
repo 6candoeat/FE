@@ -22,7 +22,7 @@
   width: 90%; // 부모 컨테이너의 너비에 맞춤
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
 // InputField 관련 스타일은 별도의 InputField.scss에서 관리하는 것을 권장
@@ -46,15 +46,22 @@
 }
 
 .options {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px; // 요소 간격 설정
+  margin-top: 10px;
 }
 
-.options div {
-  display: flex;
+.option-group {
+  margin-bottom: 10px;
   align-items: center;
-  gap: 5px;
+  .option-label-auto {
+    margin-left: 50px;
+    margin-top: -10px;
+  }
+  
+  .option-label-id-save {
+    margin-left: 230px;
+    margin-top: -24px;
+  }
+  
 }
 
 .links {
