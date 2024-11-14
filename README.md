@@ -39,6 +39,9 @@
 |__ **Store** 
    - Redux 등 상태 관리를 위한 파일 폴더
 
+### Issue
+브랜치명 : feature/#이슈번호-기능
+ex) feature/#4-registration-camera
 
 
 ### 📄 Commit  Message
