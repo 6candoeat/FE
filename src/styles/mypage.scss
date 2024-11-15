@@ -1,15 +1,17 @@
 .mypage {
+  width: 360px;
+  height: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   font-family: Arial, sans-serif;
-  padding: 1px;
+  background-color: white; // 배경색을 흰색으로 고정
+  padding: 0 20px; // 좌우 여백 추가
 }
 
 .mypage .header {
-   display: flex;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 38px;
@@ -39,6 +41,7 @@
   margin-top: 28px;
   margin-left: 30px;
 }
+
 .mypage-divider {
   border: 10px;
   height: 5px;
@@ -48,27 +51,30 @@
 
 /* Info Card */
 .info-card {
-  border: 3px solid #4096ff;
+  border: 2px solid #4096ff;
   border-radius: 8px;
   padding: 16px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 20px;
   width: 90%;
   margin-top: 118px;
   color: #333;
+  font-weight: normal;
+  padding: 13px;
 }
 
 /* Disease Card */
 .disease-card {
-  border: 3px solid #4096ff;
+  border: 2px solid #4096ff;
   border-radius: 8px;
   padding: 16px;
   margin: 10px auto;
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 20px;
   width: 90%;
   color: #333;
+  padding: 13px;
 }
 
 .disease-label {
@@ -77,21 +83,25 @@
 }
 
 .disease-value {
-  font-size: 16px;
-  color: #007bff;
-  margin-left: 220px;
+  font-size: 20px;
+  margin-left: 210px;
   text-align: right;
+  font-weight: bold;
+  color: #007bff;
 }
 
+/* Diet Management */
 .diet-management {
-  border: 3px solid #4096ff;
+  border: 2px solid #4096ff;
   border-radius: 8px;
   padding: 16px;
   margin: 4px auto;
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 20px;
   width: 90%;
   color: #333;
+  padding: 13px;
+
   .card-body {
     display: flex;
     justify-content: space-between;
@@ -104,28 +114,25 @@
   color: #555;
 }
 
-.diet-values {
+.diet-value {
   display: flex;
-  gap: 16px;
-  margin-left: 140px;
-}
-
-
-.diet-value1 {
-  font-size: 16px;
-  background-color: #007bff;
-  border-radius: 2px;
-  color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
   font-weight: bold;
+  color: #007bff;
+
+
+  .diet-option {
+    padding: 8px 12px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+  }
 }
 
-.diet-value2 {
-  font-size: 16px;
-}
-
-
-
-/* 기타 스타일 */
+/* Additional Styling */
 .info-row {
   display: flex;
   justify-content: space-between;
@@ -153,17 +160,24 @@
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
+  width: 350px;
 }
 
 .action-button {
   width: 48%;
   font-size: 0.9rem;
-  padding: 12px;
+  padding: 13px;
   background-color: #007bff;
   color: white;
+  font-size: large;
+  font-weight: bold;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #336dcc;
+  }
 }
 
 .banner {
@@ -183,6 +197,7 @@
   width: 100%;
   margin-bottom: -25px;
 }
+
 .footer {
   display: flex;
   justify-content: space-around;
