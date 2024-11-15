@@ -1,3 +1,4 @@
+// Login.js
 import React from 'react';
 import useLogin from '../hooks/useLogin';
 import '../styles/login.scss';
@@ -5,9 +6,10 @@ import '../App.css';
 import AppContainer from '../components/AppContainer';
 import InputField from '../components/InputField';
 import CheckBox from '../components/CheckBox';
+import Modal from '../components/Modal';
 
 const Login = () => {
-  const { formData, errorMessage, handleChange, handleSubmit } = useLogin();
+  const { formData, errorMessage, handleChange, handleSubmit, closeModal } = useLogin();
 
   return (
     <AppContainer>
@@ -32,38 +34,37 @@ const Login = () => {
           onChange={handleChange}
         />
         <div className="options">
-  <div className="option-group">
-    <div className="option-label-auto">
-    <CheckBox
-      label="자동 로그인"
-      name="autoLogin"
-      checked={formData.autoLogin}
-      onChange={handleChange}
-    />
-    </div>
-    <div className="option-label-id-save">
-    <CheckBox
-      label="아이디 저장"
-      name="saveId"
-      checked={formData.saveId}
-      onChange={handleChange}
-    />
-    </div>
-  </div>
-</div>
-
-        
+          <div className="option-group">
+            <div className="option-label-auto">
+              <CheckBox
+                label="자동 로그인"
+                name="autoLogin"
+                checked={formData.autoLogin}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="option-label-id-save">
+              <CheckBox
+                label="아이디 저장"
+                name="saveId"
+                checked={formData.saveId}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        </div>
         <div className="links">
           <button type="button" className="link-button">아이디 찾기</button> | 
           <button type="button" className="link-button">비밀번호 찾기</button>
         </div>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button type="submit" className="login-button">로그인</button>
         <button type="button" className="signup-button">회원가입</button>
       </form>
+
+      {/* 에러 메시지가 있을 때 모달 표시 */}
+      {errorMessage && <Modal message={errorMessage} onClose={closeModal} />}
     </AppContainer>
   );
 };
 
 export default Login;
-
