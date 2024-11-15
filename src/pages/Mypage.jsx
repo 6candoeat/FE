@@ -14,8 +14,12 @@ const Mypage = () => {
     <AppContainer>
       <div className="mypage">
         <Header title="내 정보" onBackClick={handleBackClick} />
-        <div className="divider"></div>
 
+        {/* Divider Section */}
+        <div className='mypage-divider'>
+          <hr/>
+        </div>
+        
         <div className="info-card card border-primary mb-3">
           <div className="card-body">
             {/* Info rows */}
@@ -68,9 +72,11 @@ const Mypage = () => {
         </div>
 
         {/* Banner & Footer */}
-        <div className="bottom-section">
+        <div className="mypage-bottom-section">
           <Banner />
+          <div className="mypage-footer">
           <Footer />
+          </div>
         </div>
       </div>
     </AppContainer>

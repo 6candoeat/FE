@@ -5,8 +5,8 @@ import seafoodSoupImg from "../assets/seafoodSoupImg.png";
 import soyBeanSoupImg from "../assets/soyBeanSoupImg.png";
 import kimchiStewImg from "../assets/kimchiStewImg.png";
 import Footer from "../components/footer/Footer";
-import BackButton from "../components/button/BackButton";
 import AppContainer from "../components/AppContainer";
+import Header from '../components/header/Header';
 
 const Menues = () => {
   const navigate = useNavigate();
@@ -45,14 +45,7 @@ const Menues = () => {
   return (
     <AppContainer>
       <div className="menues-page">
-        <header className="menues-header">
-          <div className="header-content">
-            <BackButton onBackClick={() => window.history.back()} />
-            <h1 className="title">시골 찌개 마을</h1>
-          </div>
-          <hr className="divider" />
-        </header>
-
+        <Header title="시골 찌개 마을" onBackClick={() => window.history.back()} />
         <div className="menu-list">
           {menuItems.map((item) => (
             <div key={item.id} className="menu-item" onClick={() => handleMenuClick(item)}>
@@ -73,7 +66,10 @@ const Menues = () => {
           ))}
         </div>
 
-        <Footer />
+         {/* Banner & Footer */}
+         <div className="menues-bottom-section">
+          <Footer />
+        </div>
       </div>
     </AppContainer>
   );

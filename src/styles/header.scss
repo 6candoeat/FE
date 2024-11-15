@@ -1,26 +1,32 @@
 .header {
     display: flex;
-    flex-direction: column; /* 수직 정렬 */
     align-items: center;
+    justify-content: space-between; /* 왼쪽과 오른쪽에 요소 배치 */
     font-size: 38px;
     color: #4096ff;
     width: 100%;
-    position: absolute;
+    position: relative;
     top: 0;
-    padding-top: 1px; /* 상단 여백 */
-}
+    padding: 10px 0;
+    background-color: white;
+    z-index: 1000;
+  }
   
-.title {
+  .backbutton {
+    flex: 1; /* 왼쪽에 위치 */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 14px;
+    font-size: 24px;
+    color: #4096ff;
+    cursor: pointer;
+  }
+  
+  .title {
+    flex: 8; /* 중앙에 위치 */
     margin: 0;
     font-weight: bold;
     font-size: 43px;
     text-align: center;
-}
-  
-.divider {
-    width: 100%;
-    border: 0;
-    height: 1px;
-    background-color: #4096ff;
-    margin-top: 5px; /* 타이틀과 divider 간격을 좁힘 */
-}
+  }
