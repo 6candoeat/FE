@@ -14,9 +14,7 @@ import ChinaStore from "./pages/ChinaStore";
 import WesternStore from "./pages/WesternStore";
 import AsiaStore from "./pages/AsiaStore";
 import StarMenu from "./pages/StarMenu";
-
-
-
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -24,18 +22,19 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/registration" element={<RegistrationTypeSelect />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/menue" element={<Menues />} />
         <Route path="/camera" element={<CameraPage />} />
         <Route path="/menu/:id" element={<MenueDetail />} />
-        <Route path="/menumain" element={<MenuMain />}/>
-        <Route path="/menumain/korea" element={<KoreaStore />}/>
-        <Route path="/menumain/japan" element={<JapanStore />}/>
-        <Route path="/menumain/china" element={<ChinaStore />}/>
-        <Route path="/menumain/western" element={<WesternStore />}/>
-        <Route path="/menumain/asia" element={<AsiaStore />}/>
-        <Route path="/menumain/star" element={<StarMenu />}/>
+        <Route path="/menumain" element={<MenuMain />} />
+        <Route path="/menumain/korea" element={<KoreaStore />} />
+        <Route path="/menumain/japan" element={<JapanStore />} />
+        <Route path="/menumain/china" element={<ChinaStore />} />
+        <Route path="/menumain/western" element={<WesternStore />} />
+        <Route path="/menumain/asia" element={<AsiaStore />} />
+        <Route path="/menumain/star" element={<StarMenu />} />
       </Routes>
     </Router>
   );
