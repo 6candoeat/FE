@@ -45,9 +45,10 @@ function CameraPage() {
             <button className="capture-button" onClick={takePhoto}>사진찍기</button>
           </div>
         )}
-        <div className="bottom-section">
-          {/* <Banner /> */}
+        <div className="camera-bottom-section">
+        <div className="camera-footer">
           <Footer />
+          </div>
         </div>
       </div>
     </AppContainer>

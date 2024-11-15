@@ -25,8 +25,8 @@
   border: none;
   font-size: 24px;
   color: #4096ff;
-  margin-left: 29px;
-  margin-top: 38px;
+  margin-left: 90px;
+  margin-top: 20px;
   cursor: pointer;
 }
 
@@ -39,13 +39,11 @@
   margin-top: 28px;
   margin-left: 30px;
 }
-.mypage .divider {
-  width: 100%;
-  border: 0;
-  height: 1px;
+.mypage-divider {
+  border: 10px;
+  height: 5px;
   background-color: #4096ff;
-  margin: 2px 0;
-  margin-bottom: 0px;
+  margin-top: 10px;
 }
 
 /* Info Card */
@@ -167,6 +165,7 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
 .banner {
   display: flex;
   justify-content: center;
@@ -177,6 +176,13 @@
   width: 100%;
 }
 
+.mypage-footer {
+  display: flex;
+  justify-content: space-around;
+  background-color: #ffffff;
+  width: 100%;
+  margin-bottom: -25px;
+}
 .footer {
   display: flex;
   justify-content: space-around;

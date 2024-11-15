@@ -1,11 +1,8 @@
 .back-button {
-    position: absolute; /* 버튼을 왼쪽에 고정 */
-    left: 14px;
-    top: 10px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #4096ff;
-    cursor: pointer;
-  }
-  
+  position: absolute; /* 왼쪽에 고정 */
+  margin-left: 14px;
+  font-size: 24px;
+  color: #4096ff;
+  cursor: pointer;
+  z-index: 1001; /* 다른 요소 위로 버튼이 나타나게 설정 */
+}
