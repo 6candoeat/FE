@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import mockUsers from '../mock/mockUsers';
+import axios from 'axios';
+
 
 const useLogin = () => {
   const [formData, setFormData] = useState({
-    id: '',
+    loginId: '',  
     password: '',
     autoLogin: false,
     saveId: false,
@@ -18,16 +19,29 @@ const useLogin = () => {
     });
   };
 
-  const handleLogin = () => {
-    const user = mockUsers.find(
-      (user) => user.id === formData.id && user.password === formData.password
-    );
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/member/login', {
+        loginId: formData.loginId,  
+        password: formData.password,
+      });
 
-    if (user) {
-      localStorage.setItem('userInfo', JSON.stringify(user));
-      window.location.replace('/mypage'); // 로그인 후 MyPage로 이동
-    } else {
-      setErrorMessage('아이디와 비밀번호가 일치하지 않습니다.');
+      if (response.status === 200) {
+        // 성공적으로 로그인했을 때
+        const userData = response.data;
+        localStorage.setItem('userInfo', JSON.stringify(userData));
+        window.location.replace('/mypage'); 
+      } else {
+        setErrorMessage('로그인에 실패했습니다. 다시 시도해주세요.');
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        // 401 
+        setErrorMessage('아이디와 비밀번호가 일치하지 않습니다.');
+      } else {
+        // 다른 에러 처리
+        setErrorMessage('서버와의 통신에 문제가 발생했습니다.');
+      }
     }
   };
 
@@ -36,11 +50,16 @@ const useLogin = () => {
     handleLogin();
   };
 
+  const closeModal = () => {
+    setErrorMessage('');
+  };
+  
   return {
     formData,
     errorMessage,
     handleChange,
     handleSubmit,
+    closeModal,
   };
 };
 

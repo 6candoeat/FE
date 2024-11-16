@@ -1,4 +1,3 @@
-// Login.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import useLogin from '../hooks/useLogin';
@@ -23,11 +22,11 @@ const Login = () => {
       <form className="login-form" onSubmit={handleSubmit}>
         <InputField
           labelText="아이디"
-          id="id"
-          name="id"
+          id="loginId"  
+          name="loginId" 
           type="text"
           placeholder="아이디를 입력해주세요."
-          value={formData.id}
+          value={formData.loginId}  
           onChange={handleChange}
         />
         <InputField
