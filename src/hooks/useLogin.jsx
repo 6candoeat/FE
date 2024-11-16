@@ -1,18 +1,12 @@
-// useLogin.js
 import { useState } from 'react';
+import axios from 'axios';
 
 const useLogin = () => {
-  const dummyUsers = [
-    { id: 'user1', password: '1234' },
-    { id: 'user2', password: '1234' },
-    { id: 'user3', password: '1234' }
-  ];
-
   const [formData, setFormData] = useState({
-    id: '',
+    loginId: '',  
     password: '',
     autoLogin: false,
-    saveId: false
+    saveId: false,
   });
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -20,18 +14,33 @@ const useLogin = () => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     });
   };
 
-  const handleLogin = () => {
-    const user = dummyUsers.find(user => user.id === formData.id && user.password === formData.password);
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/member/login', {
+        loginId: formData.loginId,  
+        password: formData.password,
+      });
 
-    if (user) {
-      localStorage.setItem('userInfo', JSON.stringify({ id: user.id, password: user.password }));
-      window.location.replace('/registration');
-    } else {
-      setErrorMessage('아이디 또는 비밀번호가 일치하지 않습니다.');
+      if (response.status === 200) {
+        // 성공적으로 로그인했을 때
+        const userData = response.data;
+        localStorage.setItem('userInfo', JSON.stringify(userData));
+        window.location.replace('/mypage'); 
+      } else {
+        setErrorMessage('로그인에 실패했습니다. 다시 시도해주세요.');
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        // 401 
+        setErrorMessage('아이디와 비밀번호가 일치하지 않습니다.');
+      } else {
+        // 다른 에러 처리
+        setErrorMessage('서버와의 통신에 문제가 발생했습니다.');
+      }
     }
   };
 
@@ -42,12 +51,6 @@ const useLogin = () => {
 
   const closeModal = () => {
     setErrorMessage('');
-    setFormData({
-      id: '',
-      password: '',
-      autoLogin: formData.autoLogin,
-      saveId: formData.saveId
-    });
   };
 
   return {
@@ -55,7 +58,7 @@ const useLogin = () => {
     errorMessage,
     handleChange,
     handleSubmit,
-    closeModal
+    closeModal,
   };
 };
 

@@ -1,5 +1,5 @@
-// Login.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import useLogin from '../hooks/useLogin';
 import '../styles/login.scss';
 import '../App.css';
@@ -9,7 +9,12 @@ import CheckBox from '../components/CheckBox';
 import Modal from '../components/Modal';
 
 const Login = () => {
+  const navigate = useNavigate();
   const { formData, errorMessage, handleChange, handleSubmit, closeModal } = useLogin();
+
+  const handleSignupClick = () => {
+    navigate('/signup'); 
+  };
 
   return (
     <AppContainer>
@@ -17,11 +22,11 @@ const Login = () => {
       <form className="login-form" onSubmit={handleSubmit}>
         <InputField
           labelText="아이디"
-          id="id"
-          name="id"
+          id="loginId"  
+          name="loginId" 
           type="text"
           placeholder="아이디를 입력해주세요."
-          value={formData.id}
+          value={formData.loginId}  
           onChange={handleChange}
         />
         <InputField
@@ -58,7 +63,9 @@ const Login = () => {
           <button type="button" className="link-button">비밀번호 찾기</button>
         </div>
         <button type="submit" className="login-button">로그인</button>
-        <button type="button" className="signup-button">회원가입</button>
+        <button type="button" className="signup-button" onClick={handleSignupClick}>
+          회원가입
+        </button>
       </form>
 
       {/* 에러 메시지가 있을 때 모달 표시 */}
