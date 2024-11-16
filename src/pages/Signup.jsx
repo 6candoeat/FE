@@ -15,8 +15,8 @@ const Signup = () => {
     },
     {
       title: "신체 정보 입력",
-      description: "키와 몸무게를 입력해주세요",
-      inputs: ["키", "몸무게", "성별"],
+      inputs: ["키", "몸무게"],
+      options: ["남", "여"],
     },
     {
       title: "운동 빈도",
@@ -51,70 +51,62 @@ const Signup = () => {
   );
 
   const handleInputChange = (name, value) => {
+    console.log(`Input 변경: ${name} = ${value}`);
     setFormData((prev) =>
       prev.map((stepData, index) =>
-        index === currentStep ? { ...stepData, inputs: { ...stepData.inputs, [name]: value } } : stepData
+        index === currentStep
+          ? { ...stepData, inputs: { ...stepData.inputs, [name]: value } }
+          : stepData
       )
     );
   };
 
   const handleOptionChange = (option) => {
+    console.log(`옵션 선택: ${option}`);
     setFormData((prev) =>
-      prev.map((stepData, index) => (index === currentStep ? { ...stepData, selectedOption: option } : stepData))
+      prev.map((stepData, index) =>
+        index === currentStep
+          ? { ...stepData, selectedOption: option }
+          : stepData
+      )
     );
   };
 
-  // const saveToLocalStorage = () => {
-  //   const signupData = {
-  //     id: formData[0].inputs["아이디"] || "",
-  //     password: formData[0].inputs["비밀번호"] || "",
-  //     username: formData[0].inputs["이름"] || "",
-  //     gender: formData[1].inputs["성별"] || "",
-  //     age: formData[0].inputs["나이"] || "",
-  //     userDisease: null, // 초기값
-  //     phoneNum: formData[0].inputs["전화번호"] || "",
-  //     height: formData[1].inputs["키"] || "",
-  //     weight: formData[1].inputs["몸무게"] || "",
-  //     userAddress: formData[0].inputs["주소"] || "",
-  //     exerciseStatus: formData[2].selectedOption || "",
-  //     dietControl: formData[3].selectedOption || "",
-  //     dailyEnergy: null, // 초기값
-  //   };
-
-  //   // 로컬스토리지에 저장
-  //   localStorage.setItem("signupData", JSON.stringify(signupData));
-  //   console.log("저장된 데이터:", signupData);
-  // };
-
-  // const handleNext = () => {
-  //   if (currentStep < steps.length - 1) {
-  //     setCurrentStep(currentStep + 1);
-  //   } else {
-  //     saveToLocalStorage();
-  //     navigate("/login");
-  //   }
-  // };
   const saveToLocalStorageAndRegister = async () => {
+    const genderMapping = {
+      남: "MALE",
+      여: "FEMALE",
+    };
+
+    const exerciseStatusMapping = {
+      "1회 이하": "NONE",
+      "2회 ~ 3회": "REGULAR",
+      "4회 이상": "FREQUENT",
+    };
+
+    const dietControlMapping = {
+      "엄격한 관리": "STRICT",
+      "일반 관리": "NORMAL",
+    };
+
     const signupData = {
       id: formData[0].inputs["아이디"] || "",
       password: formData[0].inputs["비밀번호"] || "",
       username: formData[0].inputs["이름"] || "",
-      gender: formData[1].inputs["성별"] || "",
+      gender: genderMapping[formData[1].selectedOption] || "",
       age: formData[0].inputs["나이"] || "",
       userDisease: null, // 초기값
       phoneNum: formData[0].inputs["전화번호"] || "",
       height: formData[1].inputs["키"] || "",
       weight: formData[1].inputs["몸무게"] || "",
       userAddress: formData[0].inputs["주소"] || "",
-      exerciseStatus: formData[2].selectedOption || "",
-      dietControl: formData[3].selectedOption || "",
-      dailyEnergy: null, // 초기값
+      exerciseStatus: exerciseStatusMapping[formData[2].selectedOption] || "",
+      dietControl: dietControlMapping[formData[3].selectedOption] || "",
+      dailyEnergy: null,
     };
-  
-    // 로컬스토리지에 저장
-    localStorage.setItem("signupData", JSON.stringify(signupData));
-    console.log("저장된 데이터:", signupData);
-  
+
+    console.log("회원가입 데이터 준비:", signupData);
+
     try {
       const response = await axios.post(
         "http://localhost:8080/api/member/register",
@@ -122,25 +114,29 @@ const Signup = () => {
       );
       console.log("회원가입 성공:", response.data);
       alert("회원가입이 완료되었습니다!");
-      navigate("/login"); // 성공 시 로그인 페이지로 이동
+      navigate("/login");
     } catch (error) {
       console.error("회원가입 실패:", error.response?.data || error.message);
       alert(
-        error.response?.data?.message || "회원가입 중 오류가 발생했습니다. 다시 시도해주세요."
+        error.response?.data?.message ||
+          "회원가입 중 오류가 발생했습니다. 다시 시도해주세요."
       );
     }
   };
-  
+
   const handleNext = () => {
+    console.log("현재 단계:", currentStep);
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      saveToLocalStorageAndRegister(); // 가입 완료 시 호출
+      console.log("모든 단계를 완료했습니다. 데이터 제출 준비.");
+      saveToLocalStorageAndRegister();
     }
   };
 
   const handleBack = () => {
     if (currentStep > 0) {
+      console.log("이전 단계로 이동:", currentStep - 1);
       setCurrentStep(currentStep - 1);
     }
   };
