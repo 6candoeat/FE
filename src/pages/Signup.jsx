@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AppContainer from "../components/AppContainer";
 import Header from "../components/header/Header";
 import "../styles/signup.scss";
+import axios from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -10,12 +11,12 @@ const Signup = () => {
   const steps = [
     {
       title: "회원가입",
-      inputs: ["이름", "아이디", "비밀번호", "전화번호", "주소"],
+      inputs: ["이름", "아이디", "비밀번호", "전화번호", "주소", "나이"],
     },
     {
       title: "신체 정보 입력",
       description: "키와 몸무게를 입력해주세요",
-      inputs: ["키", "몸무게"],
+      inputs: ["키", "몸무게", "성별"],
     },
     {
       title: "운동 빈도",
@@ -63,12 +64,78 @@ const Signup = () => {
     );
   };
 
+  // const saveToLocalStorage = () => {
+  //   const signupData = {
+  //     id: formData[0].inputs["아이디"] || "",
+  //     password: formData[0].inputs["비밀번호"] || "",
+  //     username: formData[0].inputs["이름"] || "",
+  //     gender: formData[1].inputs["성별"] || "",
+  //     age: formData[0].inputs["나이"] || "",
+  //     userDisease: null, // 초기값
+  //     phoneNum: formData[0].inputs["전화번호"] || "",
+  //     height: formData[1].inputs["키"] || "",
+  //     weight: formData[1].inputs["몸무게"] || "",
+  //     userAddress: formData[0].inputs["주소"] || "",
+  //     exerciseStatus: formData[2].selectedOption || "",
+  //     dietControl: formData[3].selectedOption || "",
+  //     dailyEnergy: null, // 초기값
+  //   };
+
+  //   // 로컬스토리지에 저장
+  //   localStorage.setItem("signupData", JSON.stringify(signupData));
+  //   console.log("저장된 데이터:", signupData);
+  // };
+
+  // const handleNext = () => {
+  //   if (currentStep < steps.length - 1) {
+  //     setCurrentStep(currentStep + 1);
+  //   } else {
+  //     saveToLocalStorage();
+  //     navigate("/login");
+  //   }
+  // };
+  const saveToLocalStorageAndRegister = async () => {
+    const signupData = {
+      id: formData[0].inputs["아이디"] || "",
+      password: formData[0].inputs["비밀번호"] || "",
+      username: formData[0].inputs["이름"] || "",
+      gender: formData[1].inputs["성별"] || "",
+      age: formData[0].inputs["나이"] || "",
+      userDisease: null, // 초기값
+      phoneNum: formData[0].inputs["전화번호"] || "",
+      height: formData[1].inputs["키"] || "",
+      weight: formData[1].inputs["몸무게"] || "",
+      userAddress: formData[0].inputs["주소"] || "",
+      exerciseStatus: formData[2].selectedOption || "",
+      dietControl: formData[3].selectedOption || "",
+      dailyEnergy: null, // 초기값
+    };
+  
+    // 로컬스토리지에 저장
+    localStorage.setItem("signupData", JSON.stringify(signupData));
+    console.log("저장된 데이터:", signupData);
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/member/register",
+        signupData
+      );
+      console.log("회원가입 성공:", response.data);
+      alert("회원가입이 완료되었습니다!");
+      navigate("/login"); // 성공 시 로그인 페이지로 이동
+    } catch (error) {
+      console.error("회원가입 실패:", error.response?.data || error.message);
+      alert(
+        error.response?.data?.message || "회원가입 중 오류가 발생했습니다. 다시 시도해주세요."
+      );
+    }
+  };
+  
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      console.log("회원가입 완료:", formData);
-      navigate("/login");
+      saveToLocalStorageAndRegister(); // 가입 완료 시 호출
     }
   };
 
@@ -103,7 +170,7 @@ const Signup = () => {
               <label key={index} className="checkbox-option">
                 <input
                   type="radio"
-                  name={`step-${currentStep}`} // 동일 그룹 내에서 단일 선택만 허용
+                  name={`step-${currentStep}`}
                   checked={formData[currentStep].selectedOption === option}
                   onChange={() => handleOptionChange(option)}
                 />
