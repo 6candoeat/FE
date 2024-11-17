@@ -4,14 +4,12 @@ import AppContainer from '../components/AppContainer';
 import Header from '../components/header/Header';
 import { Camera } from 'react-camera-pro';
 import '../styles/cameraPage.scss';
-// import Banner from '../components/banner/Banner';
 import Footer from '../components/footer/Footer';
 
 function CameraPage() {
   const [photo, setPhoto] = useState(null);
   const cameraRef = useRef(null);
   const navigate = useNavigate();
-
 
   const takePhoto = () => {
     const capturedPhoto = cameraRef.current.takePhoto();
@@ -27,6 +25,11 @@ function CameraPage() {
     setPhoto(null); // Reset photo to null to show the camera view again
   };
 
+  const handleCheckClick = () => {
+    // 사진 확인 버튼 클릭 시 /registration/disease로 이동하며 사진 URL 전달
+    navigate('/registration/disease', { state: { photo } });
+  };
+
   return (
     <AppContainer>
       <div className="camera-container">
@@ -37,7 +40,10 @@ function CameraPage() {
         {photo ? (
           <div className="captured-photo">
             <img src={photo} alt="캡처된 사진" />
-            <button className="recapture-button" onClick={handleRetakePhoto}>다시찍기</button>
+            <div className="button-group">
+              <button className="recapture-button" onClick={handleRetakePhoto}>다시찍기</button>
+              <button className="check-button" onClick={handleCheckClick}>확인하기</button>
+            </div>
           </div>
         ) : (
           <div className="video-container">
@@ -46,8 +52,8 @@ function CameraPage() {
           </div>
         )}
         <div className="camera-bottom-section">
-        <div className="camera-footer">
-          <Footer />
+          <div className="camera-footer">
+            <Footer />
           </div>
         </div>
       </div>

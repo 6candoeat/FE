@@ -77,7 +77,11 @@ const Login = () => {
       </form>
 
       {/* 에러 메시지가 있을 때 모달 표시 */}
-      {errorMessage && <Modal message={errorMessage} onClose={closeModal} />}
+      {errorMessage && (
+        <Modal message={errorMessage}>
+          <p>모든 입력 정보를 확인하세요!</p>
+        </Modal>
+      )}
     </AppContainer>
   );
 };
