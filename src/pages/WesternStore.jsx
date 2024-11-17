@@ -4,6 +4,10 @@ import AppContainer from '../components/AppContainer';
 import Footer from '../components/footer/Footer';  
 import BackButton from "../components/button/BackButton";
 
+import star from '../assets/image/star.PNG';
+import subway from '../assets/image/subway.PNG';
+import burgerking from '../assets/image/burgerking.PNG';
+
 const WesternStore = () => {
   return (
     <AppContainer className="app-container">
@@ -22,7 +26,7 @@ const WesternStore = () => {
 
       <div className="store-list">
         <div className="store-item">
-          <img src="/image/star.PNG" alt="스타벅스" />
+          <img src={star} alt="스타벅스" />
           <h2>스타벅스</h2>
           <div className="status">
             <span className="danger">위험 4</span>
@@ -32,7 +36,7 @@ const WesternStore = () => {
         </div>
         
         <div className="store-item">
-          <img src="/image/subway.PNG" alt="서브웨이" />
+          <img src={subway} alt="서브웨이" />
           <h2>서브웨이</h2>
           <div className="status">
             <span className="danger">위험 2</span>
@@ -42,7 +46,7 @@ const WesternStore = () => {
         </div>
 
         <div className="store-item">
-          <img src="/image/burgerking.PNG" alt="버거킹" />
+          <img src={burgerking} alt="버거킹" />
           <h2>버거킹</h2>
           <div className="status">
             <span className="danger">위험 2</span>

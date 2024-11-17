@@ -4,6 +4,11 @@ import AppContainer from '../components/AppContainer';
 import Footer from '../components/footer/Footer';  
 import BackButton from "../components/button/BackButton";
 
+import gimbapHeaven from '../assets/image/gimbapheaven.PNG';
+import Kimgane from '../assets/image/Kimgane.PNG';
+import jukstory from '../assets/image/jukstory.PNG';
+
+
 const KoreaStore = () => {
   return (
     <AppContainer className="app-container">
@@ -22,7 +27,7 @@ const KoreaStore = () => {
 
       <div className="store-list">
         <div className="store-item">
-          <img src="/image/gimbapheaven.PNG" alt="김밥천국" />
+          <img src={gimbapHeaven} alt="김밥천국" />
           <h2>김밥천국</h2>
           <div className="status">
             <span className="danger">위험 4</span>
@@ -32,7 +37,7 @@ const KoreaStore = () => {
         </div>
         
         <div className="store-item">
-          <img src="/image/Kimgane.PNG" alt="김가네" />
+          <img src={Kimgane} alt="김가네" />
           <h2>김가네</h2>
           <div className="status">
             <span className="danger">위험 2</span>
@@ -42,7 +47,7 @@ const KoreaStore = () => {
         </div>
 
         <div className="store-item">
-          <img src="/image/jukstory.PNG" alt="죽이야기" />
+          <img src={jukstory} alt="죽이야기" />
           <h2>죽이야기</h2>
           <div className="status">
             <span className="danger">위험 2</span>

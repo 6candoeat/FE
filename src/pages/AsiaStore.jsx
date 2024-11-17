@@ -4,6 +4,8 @@ import AppContainer from '../components/AppContainer';
 import Footer from '../components/footer/Footer';  
 import BackButton from "../components/button/BackButton";
 
+import phomein from '../assets/image/phomein.PNG';
+
 const AsiaStore = () => {
   return (
     <AppContainer className="app-container">
@@ -22,7 +24,7 @@ const AsiaStore = () => {
 
       <div className="store-list">
         <div className="store-item">
-          <img src="/image/phomein.PNG" alt="포메인" />
+          <img src={phomein} alt="포메인" />
           <h2>포메인</h2>
           <div className="status">
             <span className="danger">위험 4</span>
