@@ -67,6 +67,20 @@
     height: 530px; // Set the maximum height for the scrollable area
     overflow-y: auto;  // Enable vertical scrolling if content exceeds max height
     padding-right: 1rem; // Optional: add padding for scrollbar spacing
+    padding-bottom: 1rem;
+
+    &::-webkit-scrollbar {
+      width: 8px; // 스크롤바 너비 줄임
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: #cccccc; // 스크롤바 색상
+      border-radius: 4px; // 스크롤바 모서리 둥글게
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: #f0f0f0; // 스크롤 트랙 색상
+    }
   }
   
   .store-item {

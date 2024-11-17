@@ -4,6 +4,9 @@ import AppContainer from '../components/AppContainer';
 import Footer from '../components/footer/Footer';  
 import BackButton from "../components/button/BackButton";
 
+import abiko from '../assets/image/abiko.PNG';
+import sushi from '../assets/image/sushi.PNG';
+
 const JapanStore = () => {
   return (
     <AppContainer className="app-container">
@@ -22,7 +25,7 @@ const JapanStore = () => {
 
       <div className="store-list">
         <div className="store-item">
-          <img src="/image/abiko.PNG" alt="아비꼬" />
+          <img src={abiko} alt="아비꼬" />
           <h2>아비꼬</h2>
           <div className="status">
             <span className="danger">위험 4</span>
@@ -32,7 +35,7 @@ const JapanStore = () => {
         </div>
         
         <div className="store-item">
-          <img src="/image/sushi.PNG" alt="스시집" />
+          <img src={sushi} alt="스시집" />
           <h2>스시집</h2>
           <div className="status">
             <span className="danger">위험 2</span>

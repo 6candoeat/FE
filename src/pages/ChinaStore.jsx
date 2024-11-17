@@ -4,6 +4,8 @@ import AppContainer from '../components/AppContainer';
 import Footer from '../components/footer/Footer';  
 import BackButton from "../components/button/BackButton";
 
+import hongkong from '../assets/image/hongkong.PNG';
+
 const ChinaStore = () => {
   return (
     <AppContainer className="app-container">
@@ -22,7 +24,7 @@ const ChinaStore = () => {
 
       <div className="store-list">
         <div className="store-item">
-          <img src="/image/hongkong.PNG" alt="홍콩반점" />
+          <img src={hongkong} alt="홍콩반점" />
           <h2>홍콩반점</h2>
           <div className="status">
             <span className="danger">위험 4</span>
