@@ -15,6 +15,7 @@ import WesternStore from "./pages/WesternStore";
 import AsiaStore from "./pages/AsiaStore";
 import StarMenu from "./pages/StarMenu";
 import Signup from "./pages/Signup";
+import DiseasePage from "./pages/DiseasePage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/registration" element={<RegistrationTypeSelect />} />
+        <Route path="/registration/disease" element={<DiseasePage />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/menue" element={<Menues />} />
         <Route path="/camera" element={<CameraPage />} />

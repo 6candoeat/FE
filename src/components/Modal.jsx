@@ -1,12 +1,12 @@
 import React from 'react';
-import '../styles/modal.scss'; 
+import '../styles/modal.scss';
 
-function Modal({ message, onClose }) {
+function Modal({ message, onClose, children }) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <p>{message}</p>
-        <button onClick={onClose}>확인</button>
+        {children}
       </div>
     </div>
   );
