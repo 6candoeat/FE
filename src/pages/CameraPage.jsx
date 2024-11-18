@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import AppContainer from '../components/AppContainer';
 import Header from '../components/header/Header';
 import { Camera } from 'react-camera-pro';
+import axios from 'axios';
+import mockImageUrl from '../mock/mockImage'; 
 import '../styles/cameraPage.scss';
 import Footer from '../components/footer/Footer';
 
@@ -18,17 +20,43 @@ function CameraPage() {
   };
 
   const handleBackClick = () => {
-    navigate('/registration'); // '/registration' 페이지로 이동
+    navigate('/registration'); 
   };
 
   const handleRetakePhoto = () => {
-    setPhoto(null); // Reset photo to null to show the camera view again
+    setPhoto(null); 
   };
 
-  const handleCheckClick = () => {
-    // 사진 확인 버튼 클릭 시 /registration/disease로 이동하며 사진 URL 전달
-    navigate('/registration/disease', { state: { photo } });
+  const handleCheckClick = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/api/ocr/parseImage',
+        null,
+        {
+          params: {
+            imageUrl: mockImageUrl,
+          },
+        }
+      );
+  
+      console.log('OCR Full Response:', response.data); // 여기서 response.data는 문자열일 가능성이 높음
+  
+      // disease 정보 저장
+      const disease = response.data || '정보 없음'; // 문자열로 바로 처리
+      localStorage.setItem('diseaseInfo', JSON.stringify({
+        photo: mockImageUrl,
+        user_disease: disease, // 저장할 값
+      }));
+  
+      console.log('Saved Disease Info:', JSON.parse(localStorage.getItem('diseaseInfo')));
+  
+      navigate('/registration/disease');
+    } catch (error) {
+      console.error('Error during OCR request:', error);
+    }
   };
+  
+  
 
   return (
     <AppContainer>
