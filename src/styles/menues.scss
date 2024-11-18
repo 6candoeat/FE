@@ -109,7 +109,7 @@
 }
 
 /* menueDetail.scss 또는 menues.scss */
-.risk-level-container {
+.m-risk-level-container {
   padding: 10px 20px;
   border-radius: 12px;
   font-weight: bold;
@@ -118,11 +118,11 @@
   display: inline-flex;
   align-items: center;
 
-  &.danger {
+  &.high-risk {
     background-color: #ff4d4f;
   }
 
-  &.normal {
+  &.moderate  {
     background-color: #ffcc00;
   }
 

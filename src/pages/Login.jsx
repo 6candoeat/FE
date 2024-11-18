@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
 import "../styles/login.scss";
 import "../App.css";
@@ -6,12 +7,10 @@ import AppContainer from "../components/AppContainer";
 import InputField from "../components/InputField";
 import CheckBox from "../components/CheckBox";
 import Modal from "../components/Modal";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate(); // useNavigate 초기화
+  const navigate = useNavigate();
   const { formData, errorMessage, handleChange, handleSubmit, closeModal } = useLogin();
-
 
   useEffect(() => {
     // 로그인 정보가 로컬스토리지에 있으면, 로그인된 상태로 로그인 페이지에 다시 오면 localStorage 삭제
@@ -33,7 +32,7 @@ const Login = () => {
   }, [errorMessage, closeModal]);
 
   const handleSignupClick = () => {
-    navigate("/signup"); // 회원가입 페이지로 이동
+    navigate("/signup");
   };
 
   return (
@@ -42,11 +41,11 @@ const Login = () => {
       <form className="login-form" onSubmit={handleSubmit}>
         <InputField
           labelText="아이디"
-          id="id"
-          name="id"
+          id="loginId"
+          name="loginId"
           type="text"
           placeholder="아이디를 입력해주세요."
-          value={formData.id}
+          value={formData.loginId}
           onChange={handleChange}
         />
         <InputField
@@ -86,13 +85,11 @@ const Login = () => {
       </form>
 
       {/* 에러 메시지가 있을 때 모달 표시 */}
-
       {errorMessage && (
         <Modal message={errorMessage} onClose={closeModal}>
           <p>5초 뒤에 자동으로 창이 닫힙니다.</p>
         </Modal>
       )}
-
     </AppContainer>
   );
 };

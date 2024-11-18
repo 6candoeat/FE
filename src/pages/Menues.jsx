@@ -44,13 +44,15 @@ const Menues = () => {
           {menuItems.map((item, index) => (
             <div key={index} className="menu-item">
               <div className="menu-details">
-                <span
-                  className={`risk-level ${
-                    item.riskLevel === "DANGER" ? "danger" : item.riskLevel === "WARNING" ? "normal" : "safe"
-                  }`}
-                >
-                  {item.riskLevel === "SAFE" ? "안전" : item.riskLevel === "WARNING" ? "보통" : "위험"}
-                </span>
+              <span
+                className={`m-risk-level-container ${
+                  item.riskLevel === "HIGH_RISK" ? "high-risk" :
+                  item.riskLevel === "MODERATE" ? "moderate" : "safe"
+                }`}
+              >
+                {item.riskLevel === "SAFE" ? "안전" : 
+                item.riskLevel === "MODERATE" ? "보통" : "위험"}
+              </span>
                 <h2 className="menu-name">{item.menuName}</h2>
                 <p className="menu-price">가격: {item.price.toLocaleString()}원</p>
               </div>
