@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import "../styles/menues.scss";
 import Footer from "../components/footer/Footer";
 import AppContainer from "../components/AppContainer";
@@ -13,6 +13,7 @@ const Menues = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const storeName = location.state?.storeName || "가게 이름 없음";
+  const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -33,6 +34,10 @@ const Menues = () => {
     fetchMenuItems();
   }, [storeId]);
 
+  const handleMenuClick = (menuItem) => {
+    navigate(`/menu-detail/${storeId}`, { state: { ...menuItem, storeId } });
+  };
+
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>에러 발생: {error}</div>;
 
@@ -42,7 +47,7 @@ const Menues = () => {
         <Header title={storeName} onBackClick={() => window.history.back()} />
         <div className="menu-list">
           {menuItems.map((item, index) => (
-            <div key={index} className="menu-item">
+            <div key={index} className="menu-item" onClick={() => handleMenuClick(item)}>
               <div className="menu-details">
               <span
                 className={`m-risk-level-container ${

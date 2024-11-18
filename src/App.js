@@ -30,18 +30,20 @@ function App() {
         <Route path="/registration/disease" element={<DiseasePage />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/camera" element={<CameraPage />} />
-        <Route path="/menu/:id" element={<MenueDetail />} />
+
+        {/* <Route path="/menu/:id" element={<MenueDetail />} />
         <Route path="/menumain" element={<MenuMain />} />
         <Route path="/menumain/korea" element={<KoreaStore />} />
         <Route path="/menumain/japan" element={<JapanStore />} />
         <Route path="/menumain/china" element={<ChinaStore />} />
         <Route path="/menumain/western" element={<WesternStore />} />
         <Route path="/menumain/asia" element={<AsiaStore />} />
-        <Route path="/menumain/star" element={<StarMenu />} />
+        <Route path="/menumain/star" element={<StarMenu />} /> */}
 
         <Route path="/main-category" element={<Category />} />
         <Route path="/stores/:category" element={<Stores />} />
         <Route path="/menues/:storeId" element={<Menues />} />
+        <Route path="/menu-detail/:id" element={<MenueDetail />} />
       </Routes>
     </Router>
   );
