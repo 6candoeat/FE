@@ -7,9 +7,11 @@ import axios from 'axios';
 import mockImageUrl from '../mock/mockImage'; 
 import '../styles/cameraPage.scss';
 import Footer from '../components/footer/Footer';
+import Modal from '../components/Modal';  // 모달 컴포넌트 가져오기
 
 function CameraPage() {
   const [photo, setPhoto] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);  // 로딩 상태 추가
   const cameraRef = useRef(null);
   const navigate = useNavigate();
 
@@ -28,6 +30,8 @@ function CameraPage() {
   };
 
   const handleCheckClick = async () => {
+    setIsLoading(true);  // 로딩 시작
+
     try {
       const response = await axios.post(
         'http://localhost:8080/api/ocr/parseImage',
@@ -53,9 +57,10 @@ function CameraPage() {
       navigate('/registration/disease');
     } catch (error) {
       console.error('Error during OCR request:', error);
+    } finally {
+      setIsLoading(false);  // 로딩 종료
     }
   };
-  
   
 
   return (
@@ -79,6 +84,10 @@ function CameraPage() {
             <button className="capture-button" onClick={takePhoto}>사진찍기</button>
           </div>
         )}
+
+        {/* 로딩 중일 때 모달 표시 */}
+        {isLoading && <Modal message="로딩중입니다..." />}
+
         <div className="camera-bottom-section">
           <div className="camera-footer">
             <Footer />
