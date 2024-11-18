@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // 상태와 네비게이션 추가
+import { useNavigate } from 'react-router-dom';
 import AppContainer from '../components/AppContainer';
 import Header from '../components/header/Header';
 import Banner from '../components/banner/Banner';
@@ -8,26 +8,27 @@ import '../styles/diseasePage.scss';
 
 const DiseasePage = () => {
   const [username, setUsername] = useState('');
-  const location = useLocation(); // 현재 페이지의 상태를 가져옴
+  const [diseaseInfo, setDiseaseInfo] = useState({ photo: '', user_disease: '정보 없음' });
   const navigate = useNavigate();
 
-  // `photo`가 `CameraPage`에서 전달된 이미지 URL
-  const photo = location.state?.photo || '/path/to/your/uploaded/image'; // 기본 이미지 경로 설정
-
-  // Fetch username from localStorage
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo')); // Assume userInfo is stored as JSON
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (userInfo && userInfo.username) {
       setUsername(userInfo.username);
+    }
+
+    const storedDiseaseInfo = JSON.parse(localStorage.getItem('diseaseInfo'));
+    if (storedDiseaseInfo) {
+      setDiseaseInfo(storedDiseaseInfo);
     }
   }, []);
 
   const handleRetakePhoto = () => {
-    navigate('/camera'); // '/camera' 페이지로 이동
+    navigate('/camera');
   };
 
   const handleRegister = () => {
-    navigate('/mypage'); // '/mypage' 페이지로 이동
+    navigate('/mypage');
   };
 
   return (
@@ -40,11 +41,11 @@ const DiseasePage = () => {
           <div className="card">
             <h2>나의 질병</h2>
             <img 
-              src={photo} 
+              src={diseaseInfo.photo} 
               alt="Disease Info" 
               className="disease-image"
             />
-            <p>제2형 당뇨</p>
+            <p>{diseaseInfo.user_disease}</p> 
           </div>
         </div>
 
