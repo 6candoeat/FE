@@ -55,8 +55,10 @@
 }
 
 .checkbox-option {
-  font-size: 14px;
-  color: #333;
+  display: flex;
+  align-items: center;
+  font-size: 18px; /* 폰트 크기 조정 */
+  cursor: pointer;
 }
 
 .signup-description {
@@ -68,6 +70,9 @@
 }
 
 .checkbox-group {
-  margin-left: 5%;
-  font-weight: bold;
+  display: flex;
+  flex-direction: column; /* 체크박스를 세로로 배치 */
+  align-items: flex-start; /* 체크박스를 왼쪽으로 정렬 */
+  gap: 16px; /* 체크박스 간의 간격 */
+  margin: 20px 0; /* 위아래 간격 조정 */
 }

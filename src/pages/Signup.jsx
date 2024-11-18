@@ -15,6 +15,7 @@ const Signup = () => {
     },
     {
       title: "신체 정보 입력",
+      description: <>신체 정보를 입력해주세요</>,
       inputs: ["키", "몸무게"],
       options: ["남", "여"],
     },
@@ -54,9 +55,7 @@ const Signup = () => {
     console.log(`Input 변경: ${name} = ${value}`);
     setFormData((prev) =>
       prev.map((stepData, index) =>
-        index === currentStep
-          ? { ...stepData, inputs: { ...stepData.inputs, [name]: value } }
-          : stepData
+        index === currentStep ? { ...stepData, inputs: { ...stepData.inputs, [name]: value } } : stepData
       )
     );
   };
@@ -64,11 +63,7 @@ const Signup = () => {
   const handleOptionChange = (option) => {
     console.log(`옵션 선택: ${option}`);
     setFormData((prev) =>
-      prev.map((stepData, index) =>
-        index === currentStep
-          ? { ...stepData, selectedOption: option }
-          : stepData
-      )
+      prev.map((stepData, index) => (index === currentStep ? { ...stepData, selectedOption: option } : stepData))
     );
   };
 
@@ -108,21 +103,15 @@ const Signup = () => {
     console.log("회원가입 데이터 준비:", signupData);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/member/register",
-        signupData
-      );
+      const response = await axios.post("http://localhost:8080/api/member/register", signupData);
       console.log("회원가입 성공:", response.data);
-      localStorage.removeItem('signupInfo');
-      
+      localStorage.removeItem("signupInfo");
+
       alert("회원가입이 완료되었습니다!");
       navigate("/login");
     } catch (error) {
       console.error("회원가입 실패:", error.response?.data || error.message);
-      alert(
-        error.response?.data?.message ||
-          "회원가입 중 오류가 발생했습니다. 다시 시도해주세요."
-      );
+      alert(error.response?.data?.message || "회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
