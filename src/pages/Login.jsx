@@ -20,6 +20,17 @@ const Login = () => {
     }
   }, []);
 
+  // 에러 메시지가 있을 때 5초 후 자동으로 모달 닫히기
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => {
+        closeModal(); // 5초 후 모달 닫기
+      }, 5000);
+
+      return () => clearTimeout(timer); // 컴포넌트가 언마운트되거나 errorMessage가 변경될 때 타이머 정리
+    }
+  }, [errorMessage, closeModal]);
+
   const handleSignupClick = () => {
     navigate("/signup");
   };
@@ -76,7 +87,7 @@ const Login = () => {
       {/* 에러 메시지가 있을 때 모달 표시 */}
       {errorMessage && (
         <Modal message={errorMessage} onClose={closeModal}>
-          <p>모든 입력 정보를 확인하세요!</p>
+          <p>5초 뒤에 자동으로 창이 닫힙니다.</p>
         </Modal>
       )}
     </AppContainer>

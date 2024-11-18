@@ -1,30 +1,15 @@
 import React from "react";
-import "../styles/modal.scss";
+import "../styles/modal.scss"; // 스타일 파일이 있다면 여기서 가져오기
 
-// function Modal({ message, onClose, children }) {
-//   return (
-//     <div className="modal-overlay">
-//       <div className="modal-content">
-//         <p>{message}</p>
-//         <button onClick={onClose}>확인</button>
-//       </div>
-//     </div>
-//   );
-// }
-
-function Modal({ message, onClose }) {
-  const handleConfirm = () => {
-    onClose(); // 부모로부터 전달된 onClose 함수 호출
-  };
-
+const Modal = ({ message, onClose, children }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <p>{message}</p>
-        <button onClick={handleConfirm}>확인</button>
+        <h2>{message}</h2>
+        {children}
       </div>
     </div>
   );
-}
+};
 
 export default Modal;
