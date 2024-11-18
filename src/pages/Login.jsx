@@ -1,4 +1,3 @@
-// Login.js
 import React from "react";
 import useLogin from "../hooks/useLogin";
 import "../styles/login.scss";
@@ -12,6 +11,26 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate(); // useNavigate 초기화
   const { formData, errorMessage, handleChange, handleSubmit, closeModal } = useLogin();
+
+
+  useEffect(() => {
+    // 로그인 정보가 로컬스토리지에 있으면, 로그인된 상태로 로그인 페이지에 다시 오면 localStorage 삭제
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      localStorage.removeItem("userInfo"); // 로그인 상태일 경우 로컬 스토리지에서 삭제
+    }
+  }, []);
+
+  // 에러 메시지가 있을 때 5초 후 자동으로 모달 닫히기
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => {
+        closeModal(); // 5초 후 모달 닫기
+      }, 5000);
+
+      return () => clearTimeout(timer); // 컴포넌트가 언마운트되거나 errorMessage가 변경될 때 타이머 정리
+    }
+  }, [errorMessage, closeModal]);
 
   const handleSignupClick = () => {
     navigate("/signup"); // 회원가입 페이지로 이동
@@ -67,7 +86,13 @@ const Login = () => {
       </form>
 
       {/* 에러 메시지가 있을 때 모달 표시 */}
-      {errorMessage && <Modal message={errorMessage} onClose={closeModal} />}
+
+      {errorMessage && (
+        <Modal message={errorMessage} onClose={closeModal}>
+          <p>5초 뒤에 자동으로 창이 닫힙니다.</p>
+        </Modal>
+      )}
+
     </AppContainer>
   );
 };
