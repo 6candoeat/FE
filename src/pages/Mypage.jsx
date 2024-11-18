@@ -24,7 +24,13 @@ const Mypage = () => {
           }
         })
         .then((response) => {
-          setUserData(response.data);  // 응답 데이터를 그대로 설정
+          // 서버에서 받은 사용자 데이터를 userData 상태에 저장
+          const userInfo = response.data;
+
+          // 로컬스토리지의 userInfo 업데이트
+          localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+          setUserData(userInfo);  // 응답 데이터를 상태에 설정
           setLoading(false);
         })
         .catch((err) => {

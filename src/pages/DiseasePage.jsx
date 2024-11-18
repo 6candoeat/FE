@@ -4,14 +4,16 @@ import AppContainer from '../components/AppContainer';
 import Header from '../components/header/Header';
 import Banner from '../components/banner/Banner';
 import Footer from '../components/footer/Footer';
+import axios from 'axios';
 import '../styles/diseasePage.scss';
 
 const DiseasePage = () => {
   const [username, setUsername] = useState('');
-  const [diseaseInfo, setDiseaseInfo] = useState({ photo: '', user_disease: '정보 없음' });
+  const [diseaseInfo, setDiseaseInfo] = useState({ photo: '', disease: '정보 없음' });
   const navigate = useNavigate();
 
   useEffect(() => {
+    // 로컬스토리지에서 사용자 정보 및 질병 정보 불러오기
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (userInfo && userInfo.username) {
       setUsername(userInfo.username);
@@ -27,8 +29,50 @@ const DiseasePage = () => {
     navigate('/camera');
   };
 
-  const handleRegister = () => {
-    navigate('/mypage');
+  const handleRegister = async () => {
+    try {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo')); // 로컬스토리지에서 사용자 정보 가져오기
+      if (!userInfo || !userInfo.userId) {
+        console.error('User info is missing in localStorage');
+        return;
+      }
+
+      const { userId } = userInfo;
+      const { disease } = diseaseInfo;
+
+      // 한글 질병명을 영어로 변환
+      const diseaseMap = {
+        '통풍': 'GOUT',
+        '고혈압': 'HYPERTENSION',
+        '당뇨': 'DIABETES',
+      };
+
+      const diseaseParam = diseaseMap[disease] || 'UNKNOWN';
+
+      // 서버에 POST 요청
+      const response = await axios.post(
+        `http://localhost:8080/api/member/saveDisease`,
+        null,
+        {
+          params: {
+            userId,
+            disease: diseaseParam,
+          },
+        }
+      );
+
+      console.log('Response from server:', response.data);
+
+      // 성공적으로 등록 후 로컬스토리지 업데이트
+      localStorage.removeItem('diseaseInfo'); // diseaseInfo 삭제
+      const updatedUserInfo = { ...userInfo, disease: diseaseParam }; // 새로운 정보 추가
+      localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo)); // userInfo 업데이트
+
+      // 마이페이지로 이동
+      navigate('/mypage');
+    } catch (error) {
+      console.error('Error during disease registration:', error);
+    }
   };
 
   return (
@@ -45,7 +89,7 @@ const DiseasePage = () => {
               alt="Disease Info" 
               className="disease-image"
             />
-            <p>{diseaseInfo.user_disease}</p> 
+            <p>{diseaseInfo.disease}</p> 
           </div>
         </div>
 

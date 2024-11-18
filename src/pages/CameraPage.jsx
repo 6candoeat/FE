@@ -39,13 +39,13 @@ function CameraPage() {
         }
       );
   
-      console.log('OCR Full Response:', response.data); // 여기서 response.data는 문자열일 가능성이 높음
+      console.log('OCR Full Response:', response.data);
   
       // disease 정보 저장
-      const disease = response.data || '정보 없음'; // 문자열로 바로 처리
+      const disease = response.data || '정보 없음'; 
       localStorage.setItem('diseaseInfo', JSON.stringify({
         photo: mockImageUrl,
-        user_disease: disease, // 저장할 값
+        disease: disease, 
       }));
   
       console.log('Saved Disease Info:', JSON.parse(localStorage.getItem('diseaseInfo')));
