@@ -66,11 +66,10 @@
     gap: 1rem;
     height: 530px; // Set the maximum height for the scrollable area
     overflow-y: auto;  // Enable vertical scrolling if content exceeds max height
-    padding-right: 1rem; // Optional: add padding for scrollbar spacing
     padding-bottom: 1rem;
 
     &::-webkit-scrollbar {
-      width: 8px; // 스크롤바 너비 줄임
+      width: 7px; // 스크롤바 너비 줄임
     }
   
     &::-webkit-scrollbar-thumb {
