@@ -1,73 +1,64 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import "../styles/menues.scss";
-import seafoodSoupImg from "../assets/seafoodSoupImg.png";
-import soyBeanSoupImg from "../assets/soyBeanSoupImg.png";
-import kimchiStewImg from "../assets/kimchiStewImg.png";
 import Footer from "../components/footer/Footer";
 import AppContainer from "../components/AppContainer";
-import Header from '../components/header/Header';
+import Header from "../components/header/Header";
+import axios from "axios";
 
 const Menues = () => {
-  const navigate = useNavigate();
+  const { storeId } = useParams();
+  const location = useLocation();
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const storeName = location.state?.storeName || "가게 이름 없음";
 
-  const menuItems = [
-    {
-      id: 1,
-      riskLevel: "위험",
-      name: "해물 순두부찌개",
-      price1: "10000원",
-      price2: "25000원",
-      img: seafoodSoupImg,
-    },
-    {
-      id: 2,
-      riskLevel: "안전",
-      name: "된장찌개",
-      price1: "9000원",
-      price2: "24000원",
-      img: soyBeanSoupImg,
-    },
-    {
-      id: 3,
-      riskLevel: "보통",
-      name: "돼지고기 김치찌개",
-      price1: "9000원",
-      price2: "24000원",
-      img: kimchiStewImg,
-    },
-  ];
+  useEffect(() => {
+    const fetchMenuItems = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/stores/${storeId}/1`);
+        if (response.data.returnCode === "0000") {
+          setMenuItems(response.data.data.contents);
+        } else {
+          throw new Error("메뉴를 가져오는 데 실패했습니다.");
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleMenuClick = (item) => {
-    navigate(`/menu/${item.id}`, { state: item }); // 선택된 메뉴 데이터를 state로 전달
-  };
+    fetchMenuItems();
+  }, [storeId]);
+
+  if (loading) return <div>로딩 중...</div>;
+  if (error) return <div>에러 발생: {error}</div>;
 
   return (
     <AppContainer>
       <div className="menues-page">
-        <Header title="시골 찌개 마을" onBackClick={() => window.history.back()} />
+        <Header title={storeName} onBackClick={() => window.history.back()} />
         <div className="menu-list">
-          {menuItems.map((item) => (
-            <div key={item.id} className="menu-item" onClick={() => handleMenuClick(item)}>
+          {menuItems.map((item, index) => (
+            <div key={index} className="menu-item">
               <div className="menu-details">
                 <span
                   className={`risk-level ${
-                    item.riskLevel === "위험" ? "danger" : item.riskLevel === "보통" ? "normal" : "safe"
+                    item.riskLevel === "DANGER" ? "danger" : item.riskLevel === "WARNING" ? "normal" : "safe"
                   }`}
                 >
-                  {item.riskLevel}
+                  {item.riskLevel === "SAFE" ? "안전" : item.riskLevel === "WARNING" ? "보통" : "위험"}
                 </span>
-                <h2 className="menu-name">{item.name}</h2>
-                <p className="menu-price">1인분 : {item.price1}</p>
-                <p className="menu-price">2~3인분 : {item.price2}</p>
+                <h2 className="menu-name">{item.menuName}</h2>
+                <p className="menu-price">가격: {item.price.toLocaleString()}원</p>
               </div>
-              <img src={item.img} alt={item.name} className="menu-image" />
+              <img src={item.menuImageUrl || "/image/default-menu.png"} alt={item.menuName} className="menu-image" />
             </div>
           ))}
         </div>
-
-         {/* Banner & Footer */}
-         <div className="menues-bottom-section">
+        <div className="menues-bottom-section">
           <Footer />
         </div>
       </div>

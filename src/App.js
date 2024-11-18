@@ -16,6 +16,8 @@ import AsiaStore from "./pages/AsiaStore";
 import StarMenu from "./pages/StarMenu";
 import Signup from "./pages/Signup";
 import DiseasePage from "./pages/DiseasePage";
+import Stores from "./pages/Stores";
+import Category from "./pages/Category";
 
 function App() {
   return (
@@ -27,7 +29,6 @@ function App() {
         <Route path="/registration" element={<RegistrationTypeSelect />} />
         <Route path="/registration/disease" element={<DiseasePage />} />
         <Route path="/mypage" element={<Mypage />} />
-        <Route path="/menue" element={<Menues />} />
         <Route path="/camera" element={<CameraPage />} />
         <Route path="/menu/:id" element={<MenueDetail />} />
         <Route path="/menumain" element={<MenuMain />} />
@@ -37,6 +38,10 @@ function App() {
         <Route path="/menumain/western" element={<WesternStore />} />
         <Route path="/menumain/asia" element={<AsiaStore />} />
         <Route path="/menumain/star" element={<StarMenu />} />
+
+        <Route path="/main-category" element={<Category />} />
+        <Route path="/stores/:category" element={<Stores />} />
+        <Route path="/menues/:storeId" element={<Menues />} />
       </Routes>
     </Router>
   );
