@@ -86,7 +86,11 @@ function CameraPage() {
         )}
 
         {/* 로딩 중일 때 모달 표시 */}
-        {isLoading && <Modal message="로딩중입니다..." />}
+        {isLoading && (
+          <Modal message="잠시만 기다려주세요...">
+            <p>약 분석 중입니다!</p>
+          </Modal>
+        )}
 
         <div className="camera-bottom-section">
           <div className="camera-footer">
