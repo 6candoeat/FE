@@ -20,6 +20,7 @@ const Menues = () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/stores/${storeId}/1`);
         if (response.data.returnCode === "0000") {
+          console.log(response.data.data.contents);
           setMenuItems(response.data.data.contents);
         } else {
           throw new Error("메뉴를 가져오는 데 실패했습니다.");
@@ -61,7 +62,19 @@ const Menues = () => {
                 <h2 className="menu-name">{item.menuName}</h2>
                 <p className="menu-price">가격: {item.price.toLocaleString()}원</p>
               </div>
-              <img src={item.menuImageUrl || "/image/default-menu.png"} alt={item.menuName} className="menu-image" />
+              <img
+                src={item.menuImageUrl || `/image/${storeId}/${item.menuId}.PNG`}
+                alt={item.menuName}
+                className="menu-image"
+                onError={(e) => {
+                  const fallbackSrc = `/image/${storeId}/0.PNG`;
+                  if (e.target.src !== fallbackSrc) {
+                    e.target.src = fallbackSrc; // 첫 번째 대체 이미지
+                  } else {
+                    e.target.src = "/image/default-menu.png"; // 최종 대체 이미지
+                  }
+                }}
+              />
             </div>
           ))}
         </div>
@@ -74,3 +87,5 @@ const Menues = () => {
 };
 
 export default Menues;
+
+
