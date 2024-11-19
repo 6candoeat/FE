@@ -85,7 +85,7 @@ const Signup = () => {
     };
 
     const signupData = {
-      id: formData[0].inputs["아이디"] || "",
+      loginId: formData[0].inputs["아이디"] || "",
       password: formData[0].inputs["비밀번호"] || "",
       username: formData[0].inputs["이름"] || "",
       gender: genderMapping[formData[1].selectedOption] || "",
