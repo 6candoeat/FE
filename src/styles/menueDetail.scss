@@ -1,7 +1,6 @@
 .menue-detail-page {
   width: 100%;
-  max-width: 360px;
-  margin: 0 auto;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,46 +8,27 @@
   font-family: Arial, sans-serif;
   background-color: white;
   box-sizing: border-box;
-}
 
-.header {
-  width: 100%;
-  text-align: center;
-  padding-top: 10px;
+  height: 655px;
+  overflow-y: auto; /* 수직 스크롤 활성화 */
 
-  .header-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  &::-webkit-scrollbar {
+    width: 7px; // 스크롤바 너비 줄임
   }
 
-  .back-button {
-    position: absolute;
-    left: -50px;
-    font-size: 24px;
-    color: #4096ff;
-    background: none;
-    border: none;
-    cursor: pointer;
+  &::-webkit-scrollbar-thumb {
+    background: #cccccc; // 스크롤바 색상
   }
 
-  .title {
-    font-size: 32px;
-    color: #4096ff;
-    font-weight: bold;
-  }
-
-  .divider {
-    width: 100%;
-    height: 2px;
-    background-color: #4096ff;
-    margin-top: 20px;
+  &::-webkit-scrollbar-track {
+    background: #ffffff; // 스크롤 트랙 색상
   }
 }
+
 
 .risk-level-container {
-  margin-top: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   background-color: #ff4d4f;
   color: white;
   border-radius: 12px;
@@ -66,7 +46,7 @@
 
 .menu-image-container {
   width: 100%;
-  margin: 20px 0;
+  margin: 10px 0;
   text-align: center;
 
   .menu-image {
@@ -76,15 +56,10 @@
   }
 }
 
-.caution-text {
-  font-size: 13px;
-  color: #000000;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
 .order-button {
   width: 90%;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 12px;
   font-size: 16px;
   color: white;
@@ -97,8 +72,8 @@
 
 .nutrition-info {
   width: 80%;
-  margin-top: 15%;
-  margin-bottom: 10%;
+  margin-top: 10px;
+  margin-bottom: 10px;
   background-color: #e2ecf7;
   border-radius: 12px;
   padding: 5% 10%;

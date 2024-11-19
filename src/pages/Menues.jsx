@@ -12,15 +12,34 @@ const Menues = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userId, setUserId] = useState(null); // userId 상태 추가
   const storeName = location.state?.storeName || "가게 이름 없음";
-  const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수
+  const navigate = useNavigate();
 
+  // userId 가져오기
+  useEffect(() => {
+    const storedUserInfo = localStorage.getItem("userInfo");
+    if (storedUserInfo) {
+      try {
+        const parsedUserInfo = JSON.parse(storedUserInfo);
+        setUserId(parsedUserInfo.userId); // userId 설정
+      } catch (err) {
+        console.error("userInfo 파싱 오류:", err);
+        navigate("/login"); // 파싱 실패 시 로그인 페이지로 이동
+      }
+    } else {
+      console.error("로컬 스토리지에 userInfo가 없습니다.");
+      navigate("/login"); // userInfo가 없을 경우 로그인 페이지로 이동
+    }
+  }, [navigate]);
+
+  // 메뉴 데이터 가져오기
   useEffect(() => {
     const fetchMenuItems = async () => {
+      if (!userId) return; // userId가 없는 경우 실행 중단
       try {
-        const response = await axios.get(`http://localhost:8080/api/stores/${storeId}/1`);
+        const response = await axios.get(`http://localhost:8080/api/stores/${storeId}/${userId}`);
         if (response.data.returnCode === "0000") {
-          console.log(response.data.data.contents);
           setMenuItems(response.data.data.contents);
         } else {
           throw new Error("메뉴를 가져오는 데 실패했습니다.");
@@ -33,7 +52,7 @@ const Menues = () => {
     };
 
     fetchMenuItems();
-  }, [storeId]);
+  }, [storeId, userId]); // userId가 설정되었을 때만 실행
 
   const handleMenuClick = (menuItem) => {
     navigate(`/menu-detail/${storeId}`, { state: { ...menuItem, storeId } });
@@ -50,15 +69,15 @@ const Menues = () => {
           {menuItems.map((item, index) => (
             <div key={index} className="menu-item" onClick={() => handleMenuClick(item)}>
               <div className="menu-details">
-              <span
-                className={`m-risk-level-container ${
-                  item.riskLevel === "HIGH_RISK" ? "high-risk" :
-                  item.riskLevel === "MODERATE" ? "moderate" : "safe"
-                }`}
-              >
-                {item.riskLevel === "SAFE" ? "안전" : 
-                item.riskLevel === "MODERATE" ? "보통" : "위험"}
-              </span>
+                <span
+                  className={`m-risk-level-container ${
+                    item.riskLevel === "HIGH_RISK" ? "high-risk" :
+                    item.riskLevel === "MODERATE" ? "moderate" : "safe"
+                  }`}
+                >
+                  {item.riskLevel === "SAFE" ? "안전" : 
+                  item.riskLevel === "MODERATE" ? "보통" : "위험"}
+                </span>
                 <h2 className="menu-name">{item.menuName}</h2>
                 <p className="menu-price">가격: {item.price.toLocaleString()}원</p>
               </div>
@@ -87,5 +106,3 @@ const Menues = () => {
 };
 
 export default Menues;
-
-

@@ -5,7 +5,6 @@ import Header from '../components/header/Header';
 import { Camera } from 'react-camera-pro';
 import axios from 'axios';
 import '../styles/cameraPage.scss';
-import Footer from '../components/footer/Footer';
 import Modal from '../components/Modal';  // 모달 컴포넌트 가져오기
 
 function CameraPage() {
@@ -64,11 +63,8 @@ function CameraPage() {
 
   return (
     <AppContainer>
+      <Header title="사진 등록" onBackClick={handleBackClick} />
       <div className="camera-container">
-        <Header 
-          title="사진 등록" 
-          onBackClick={handleBackClick} 
-        />
         {photo ? (
           <div className="captured-photo">
             <img src={photo} alt="캡처된 사진" />
@@ -90,12 +86,6 @@ function CameraPage() {
             <p>약 분석 중입니다!</p>
           </Modal>
         )}
-
-        <div className="camera-bottom-section">
-          <div className="camera-footer">
-            <Footer />
-          </div>
-        </div>
       </div>
     </AppContainer>
   );

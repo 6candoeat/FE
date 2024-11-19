@@ -77,10 +77,8 @@ const DiseasePage = () => {
 
   return (
     <AppContainer>
+      <Header title={username} onBackClick={() => window.history.back()} />
       <div className="disease-content">
-        <Header title={username} />
-        <div className="divider"></div>
-        
         <div className="disease-info">
           <div className="card">
             <h2>나의 질병</h2>
@@ -94,7 +92,7 @@ const DiseasePage = () => {
         </div>
 
         {/* Buttons */}
-        <div className="button-group">
+        <div className="disease-button-group">
           <button className="retry-button" onClick={handleRetakePhoto}>다시찍기</button>
           <button className="register-button" onClick={handleRegister}>등록하기</button>
         </div>
