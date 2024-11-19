@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import DiseasePage from "./pages/DiseasePage";
 import Stores from "./pages/Stores";
 import Category from "./pages/Category";
+import StarMenu from "./pages/StarMenu";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/stores/:category" element={<Stores />} />
         <Route path="/menues/:storeId" element={<Menues />} />
         <Route path="/menu-detail/:id" element={<MenueDetail />} />
+        <Route path="/recommendation/:id" element={<StarMenu />} />
       </Routes>
     </Router>
   );

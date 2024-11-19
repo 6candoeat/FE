@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AppContainer from "../components/AppContainer";
-import Header from "../components/header/Header";
 import "../styles/signup.scss";
 import axios from "axios";
 
@@ -134,7 +133,10 @@ const Signup = () => {
 
   return (
     <AppContainer>
-      <Header title={steps[currentStep].title} onBackClick={handleBack} />
+      <header className="sign-header">
+        <h1 className="title">{steps[currentStep].title}</h1>
+        <hr className="divider" />
+    </header>
       <div className="signup-content">
         <p className="signup-description">{steps[currentStep].description}</p>
 
