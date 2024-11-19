@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import AppContainer from "../components/AppContainer";
 import Header from "../components/header/Header";
 import MenueOption from "../pages/MenueOption";
-
 import "../styles/menueDetail.scss";
 import axios from "axios";
 
@@ -22,7 +21,7 @@ const getRiskLevelStyle = (riskLevel) => {
 
 const MenueDetail = () => {
   const location = useLocation();
-  const { menuName, storeId } = location.state; // 전달된 menuName과 storeId
+  const { menuId } = location.state;
   const [menuItem, setMenuItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,23 +35,41 @@ const MenueDetail = () => {
     setOptionOpen(false);
   };
 
+  const renderNutritionTable = (nutrition) => {
+    const filteredNutrition = Object.entries(nutrition).filter(([key, value]) => value !== 0.0);
+
+    return (
+      <table className="nutrition-table">
+        <thead>
+          <tr>
+            <th>영양성분</th>
+            <th>값</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredNutrition.map(([key, value]) => (
+            <tr key={key}>
+              <td>{key}</td>
+              <td>{value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  };
+
   useEffect(() => {
     const fetchMenuDetail = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:8080/api/stores/${storeId}/1`);
+        const response = await axios.get(`http://localhost:8080/api/menus/${menuId}/1`);
         if (response.data.returnCode === "0000") {
-          const menus = response.data.data.contents;
-          const selectedMenu = menus.find((menu) => menu.menuName === menuName);
-          if (selectedMenu) {
-            setMenuItem(selectedMenu);
-          } else {
-            throw new Error("메뉴를 찾을 수 없습니다.");
-          }
+          setMenuItem(response.data.data);
         } else {
           throw new Error("메뉴 정보를 가져오는 데 실패했습니다.");
         }
       } catch (err) {
+        console.error("Error fetching menu details:", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -60,7 +77,7 @@ const MenueDetail = () => {
     };
 
     fetchMenuDetail();
-  }, [storeId, menuName]);
+  }, [menuId]);
 
   if (loading) return <p>로딩 중...</p>;
   if (error) return <p>에러 발생: {error}</p>;
@@ -72,10 +89,6 @@ const MenueDetail = () => {
     <AppContainer>
       <div className="menue-detail-page">
         <Header title={menuItem.menuName} onBackClick={() => window.history.back()} />
-        {/* <div className="header-content">
-            <BackButton onBackClick={() => window.history.back()} />
-            <h1 className="title">{menuItem.menuName}</h1>
-          </div> */}
         <div className="risk-level-container" style={{ backgroundColor: color }}>
           <span className="icon">{icon}</span> {label}
         </div>
@@ -86,7 +99,21 @@ const MenueDetail = () => {
             className="menu-image"
           />
         </div>
-        <p className="caution-text">정확한 정보는 의사 등 전문가와 상담 후 섭취하세요</p>
+        <div className="nutrition-info">
+          <h3 className="nutrition-title">영양성분 정보</h3>
+          {menuItem &&
+            renderNutritionTable({
+              calories: menuItem.calories,
+              fat: menuItem.fat,
+              saturatedFat: menuItem.saturatedFat,
+              transFat: menuItem.transFat,
+              sodium: menuItem.sodium,
+              carbohydrates: menuItem.carbohydrates,
+              protein: menuItem.protein,
+              dietaryFiber: menuItem.dietaryFiber,
+              sugar: menuItem.sugar,
+            })}
+        </div>
         <button className="order-button" onClick={handleOrderClick}>
           주문하기
         </button>
