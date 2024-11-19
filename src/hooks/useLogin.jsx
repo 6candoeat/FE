@@ -30,7 +30,7 @@ const useLogin = () => {
         // 성공적으로 로그인했을 때
         const userData = response.data;
         localStorage.setItem('userInfo', JSON.stringify(userData));
-        window.location.replace('/mypage'); 
+        window.location.replace('/main-category'); 
       } else {
         setErrorMessage('로그인에 실패했습니다. 다시 시도해주세요.');
       }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Banner from "../components/banner/Banner";
 import Footer from "../components/footer/Footer";
@@ -13,8 +13,24 @@ import japan from "../assets/image/005.png";
 import asia from "../assets/image/001.png";
 
 function Category() {
+  const [userId, setUserId] = useState(null); // userId 상태
+
+  useEffect(() => {
+    // localStorage에서 userInfo를 가져와 파싱
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      const parsedUserInfo = JSON.parse(userInfo);
+      setUserId(parsedUserInfo.userId); // userId만 가져옴
+    }
+  }, []);
+
+  // userId가 없으면 로딩 중 표시
+  if (userId === null) {
+    return <div>로딩 중...</div>;
+  }
+
   const categories = [
-    { name: "추천", category: "Recommand", icon: star },
+    { name: "추천", category: "recommendation", icon: star },
     { name: "한식", category: "KOREAN", icon: korea },
     { name: "일식", category: "JAPANESE", icon: japan },
     { name: "양식", category: "WESTERN", icon: western },
@@ -32,7 +48,11 @@ function Category() {
 
       <main className="menu-grid">
         {categories.map(({ name, category, icon }) => (
-          <Link to={`/stores/${category}`} key={category} style={{ textDecoration: "none" }}>
+          <Link
+            to={category === "recommendation" ? `/recommendation/${userId}` : `/stores/${category}`}
+            key={category}
+            style={{ textDecoration: "none" }}
+          >
             <div className="main-item">
               <div className="icon">
                 <img src={icon} alt={`${name} 아이콘`} />
