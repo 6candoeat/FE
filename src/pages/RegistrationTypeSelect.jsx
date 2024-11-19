@@ -17,16 +17,11 @@ function RegistrationTypeSelect() {
 
   return (
     <AppContainer>
+      <Header title={<>
+      질병 등록 방법<br />
+      선택하기
+    </>} onBackClick={() => window.history.back()} />
       <div className="disease-container">
-        <Header 
-          title={(
-            <>
-              질병 등록 방법
-              <br />
-              선택하기
-            </>
-          )} 
-        />
         <div className="option-container">
           <button className="option" onClick={handlePhotoClick}>
             <h2 className="option-title">사진 찍기</h2>
@@ -34,8 +29,8 @@ function RegistrationTypeSelect() {
             <p className="option-description">약 봉투를 찍어서 질병 정보를 입력합니다.</p>
           </button>
           <button className="option" onClick={handleDirectInputClick}>
-            <div className="icon pencil-icon" />
             <h2 className="option-title">직접 입력</h2>
+            <div className="icon pencil-icon" />
             <p className="option-description">직접 질병 정보를 입력합니다.</p>
           </button>
         </div>

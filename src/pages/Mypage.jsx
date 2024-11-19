@@ -71,10 +71,8 @@ const Mypage = () => {
 
   return (
     <AppContainer>
+      <Header title="내 정보" onBackClick={() => window.history.back()} />
       <div className="mypage">
-        <Header title="내 정보" />
-        <div className="divider"></div>
-
         <div className="info-card card border-primary mb-3">
           <div className="card-body">
             <div className="info-row d-flex justify-content-between">
@@ -103,9 +101,9 @@ const Mypage = () => {
         </div>
 
         <div className="disease-card card border-primary mb-3">
-          <div className="card-body text-center">
+          <div className="card-body d-flex justify-content-between">
             <span className="disease-label">나의 질병</span>
-            <span className="disease-value ms-2">
+            <span className="disease-value">
               {getDiseaseName(userData.userDisease)} {/* 필드명 수정 */}
             </span>
           </div>
@@ -117,6 +115,16 @@ const Mypage = () => {
             <span className="diet-value">
               {userData.dietControl === 'STRICT' ? '엄격한 관리' : '일반 관리'}
             </span>
+          </div>
+        </div>
+
+        <div className="disease-card card border-primary mb-3">
+          <div className="card-body d-flex justify-content-between">
+            <span className="disease-label">1일 에너지 필요량</span>
+            <span className="disease-value">
+              {userData.dailyEnergy} {/* 필드명 수정 */}
+            </span>
+            <span className="disease-label">kcal</span>
           </div>
         </div>
 

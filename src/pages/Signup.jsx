@@ -34,9 +34,9 @@ const Signup = () => {
       title: "식단 관리 강도",
       description: (
         <>
-          식단 관리를
+          어떤 식단 관리 방식이
           <br />
-          어느 정도로 추천해드릴까요?
+          더 적합하신가요?
         </>
       ),
       options: ["엄격한 관리", "일반 관리"],
@@ -153,10 +153,11 @@ const Signup = () => {
 
         {steps[currentStep].options && (
           <div className="checkbox-group">
+            {currentStep === 1 && <h3 className="options-title">성별</h3>}
             {steps[currentStep].options.map((option, index) => (
               <label key={index} className="checkbox-option">
                 <input
-                  type="radio"
+                  type="checkbox"
                   name={`step-${currentStep}`}
                   checked={formData[currentStep].selectedOption === option}
                   onChange={() => handleOptionChange(option)}

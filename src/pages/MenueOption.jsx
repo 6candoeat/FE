@@ -18,7 +18,7 @@ const MenueOption = ({ isOpen, onClose }) => {
         </div>
         <hr className="divider" />
 
-        <div className="options">
+        <div className="m-options">
           <div className="option-group">
             <label>맵기를 선택해주세요</label>
             <div className="option-buttons">

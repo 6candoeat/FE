@@ -5,6 +5,7 @@ import Header from "../components/header/Header";
 import MenueOption from "../pages/MenueOption";
 import "../styles/menueDetail.scss";
 import axios from "axios";
+import Footer from "../components/footer/Footer";
 
 const getRiskLevelStyle = (riskLevel) => {
   switch (riskLevel) {
@@ -62,7 +63,18 @@ const MenueDetail = () => {
     const fetchMenuDetail = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:8080/api/menus/${menuId}/1`);
+        
+        // 로컬스토리지에서 userInfo를 가져오기
+        const storedUserInfo = localStorage.getItem("userInfo");
+        if (!storedUserInfo) {
+          setError("사용자 정보가 로컬스토리지에 없습니다.");
+          return;
+        }
+
+        const userInfo = JSON.parse(storedUserInfo);
+        const userId = userInfo.userId;  // userId 추출
+
+        const response = await axios.get(`http://localhost:8080/api/menus/${menuId}/${userId}`);
         if (response.data.returnCode === "0000") {
           setMenuItem(response.data.data);
         } else {
@@ -87,31 +99,39 @@ const MenueDetail = () => {
 
   return (
     <AppContainer>
+      <Header title={menuItem.menuName} onBackClick={() => window.history.back()} />
       <div className="menue-detail-page">
-        <Header title={menuItem.menuName} onBackClick={() => window.history.back()} />
         <div className="risk-level-container" style={{ backgroundColor: color }}>
           <span className="icon">{icon}</span> {label}
         </div>
         <div className="menu-image-container">
           <img
-            src={menuItem.menuImageUrl || "/image/default-menu.png"}
+            src={menuItem.menuImageUrl || `/image/${menuItem.storeId}/${menuItem.menuId}.PNG`} 
             alt={menuItem.menuName}
             className="menu-image"
+            onError={(e) => {
+              const fallbackSrc = `/image/${menuItem.storeId}/0.PNG`;
+              if (e.target.src !== fallbackSrc) {
+                e.target.src = fallbackSrc; // 첫 번째 대체 이미지
+              } else {
+                e.target.src = "/image/default-menu.png"; // 최종 대체 이미지
+              }
+            }}
           />
         </div>
         <div className="nutrition-info">
           <h3 className="nutrition-title">영양성분 정보</h3>
           {menuItem &&
             renderNutritionTable({
-              calories: menuItem.calories,
-              fat: menuItem.fat,
-              saturatedFat: menuItem.saturatedFat,
-              transFat: menuItem.transFat,
-              sodium: menuItem.sodium,
-              carbohydrates: menuItem.carbohydrates,
-              protein: menuItem.protein,
-              dietaryFiber: menuItem.dietaryFiber,
-              sugar: menuItem.sugar,
+              칼로리: menuItem.calories,
+              총지방: menuItem.fat,
+              포화지방: menuItem.saturatedFat,
+              트랜스지방: menuItem.transFat,
+              나트륨: menuItem.sodium,
+              탄수화물: menuItem.carbohydrates,
+              단백질: menuItem.protein,
+              식이섬유: menuItem.dietaryFiber,
+              당류: menuItem.sugar,
             })}
         </div>
         <button className="order-button" onClick={handleOrderClick}>
@@ -119,6 +139,7 @@ const MenueDetail = () => {
         </button>
         <MenueOption isOpen={isOptionOpen} onClose={handleClose} />
       </div>
+      <Footer />
     </AppContainer>
   );
 };
