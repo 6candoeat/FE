@@ -4,7 +4,6 @@ import AppContainer from '../components/AppContainer';
 import Header from '../components/header/Header';
 import { Camera } from 'react-camera-pro';
 import axios from 'axios';
-import mockImageUrl from '../mock/mockImage'; 
 import '../styles/cameraPage.scss';
 import Footer from '../components/footer/Footer';
 import Modal from '../components/Modal';  // 모달 컴포넌트 가져오기
@@ -38,7 +37,7 @@ function CameraPage() {
         null,
         {
           params: {
-            imageUrl: mockImageUrl,
+            imageUrl: photo,
           },
         }
       );
@@ -48,7 +47,7 @@ function CameraPage() {
       // disease 정보 저장
       const disease = response.data || '정보 없음'; 
       localStorage.setItem('diseaseInfo', JSON.stringify({
-        photo: mockImageUrl,
+        photo: photo,
         disease: disease, 
       }));
   
