@@ -1,60 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import AppContainer from "../components/AppContainer";
 import Footer from "../components/footer/Footer";
 import Header from "../components/header/Header";
 import "../styles/stores.scss";
 
-import gimbapHeaven from '../assets/image/gimbapheaven.PNG';
-import Kimgane from '../assets/image/Kimgane.PNG';
-import jukstory from '../assets/image/jukstory.PNG';
-import abiko from '../assets/image/abiko.PNG';
-import sushi from '../assets/image/sushi.PNG';
-import hongkong from '../assets/image/hongkong.PNG';
-import phomein from '../assets/image/phomein.PNG';
-import star from '../assets/image/star.PNG';
-import subway from '../assets/image/subway.PNG';
-import burgerking from '../assets/image/burgerking.PNG';
-
-
-const dummyData = [
-  { store_id: 1, store_name: "김가네", category: "KOREAN", danger: 4, warning: 2, safe: 3, icon: Kimgane },
-  { store_id: 2, store_name: "김밥천국", category: "KOREAN", danger: 2, warning: 3, safe: 4, icon: gimbapHeaven},
-  { store_id: 3, store_name: "아비꼬", category: "JAPANESE", danger: 1, warning: 5, safe: 3,  icon: abiko},
-  { store_id: 4, store_name: "스시집", category: "JAPANESE", danger: 0, warning: 2, safe: 6, icon: sushi},
-  { store_id: 5, store_name: "죽이야기", category: "KOREAN", danger: 3, warning: 4, safe: 2, icon: jukstory},
-  { store_id: 6, store_name: "서브웨이", category: "WESTERN", danger: 2, warning: 1, safe: 5, icon: subway},
-  { store_id: 7, store_name: "버거킹", category: "WESTERN", danger: 1, warning: 3, safe: 3, icon: burgerking},
-  { store_id: 8, store_name: "스타벅스", category: "WESTERN", danger: 0, warning: 1, safe: 8, icon: star},
-  { store_id: 9, store_name: "포메인", category: "ASIAN", danger: 1, warning: 4, safe: 3, icon: phomein},
-  { store_id: 10, store_name: "홍콩반점", category: "CHINESE", danger: 3, warning: 3, safe: 2, icon: hongkong},
-];
-
 const Stores = () => {
-  const { category } = useParams();
+  const { category, userId } = useParams(); // userId를 URL 파라미터로부터 가져오기
   const navigate = useNavigate();
-  const filteredStores = dummyData.filter((store) => store.category === category);
+  const [stores, setStores] = useState([]);
 
-  if (filteredStores.length === 0) {
+  // 카테고리 이름 매핑
+  const categoryNames = {
+    KOREAN: "한식",
+    JAPANESE: "일식",
+    WESTERN: "양식",
+    ASIAN: "아시안",
+    CHINESE: "중식",
+  };
+
+  const categoryName = categoryNames[category];
+
+  // API 호출로 가게 데이터 가져오기
+  useEffect(() => {
+    const fetchStores = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/stores/1?category=${category}`);
+        if (response.data.returnCode === "0000") {
+          setStores(response.data.data.contents);
+        }
+      } catch (error) {
+        console.error("가게 데이터를 가져오는 데 실패했습니다.", error);
+      }
+    };
+    fetchStores();
+  }, [category, userId]); // category와 userId가 변경될 때마다 API 요청
+
+  // 잘못된 카테고리 처리
+  if (!categoryName) {
+    return <div>잘못된 카테고리입니다.</div>;
+  }
+
+  // 해당 카테고리에 맞는 가게가 없을 때 처리
+  if (stores.length === 0) {
     return <div>해당 카테고리에 가게 정보가 없습니다.</div>;
   }
 
   const handleStoreClick = (store) => {
-    navigate(`/menues/${store.store_id}`, { state: { storeName: store.store_name } });
+    navigate(`/menues/${store.storeId}`, { state: { storeName: store.storeName } });
   };
 
   return (
     <AppContainer className="app-container">
-      <Header title={category} onBackClick={() => window.history.back()} />
+      <Header title={categoryName} onBackClick={() => window.history.back()} />
 
       <div className="store-list">
-        {filteredStores.map((store) => (
-          <div className="store-item" key={store.store_id} onClick={() => handleStoreClick(store)}>
-            <img src={store.icon} alt={store.store_name} />
-            <h2>{store.store_name}</h2>
+        {stores.map((store) => (
+          <div className="store-item" key={store.storeId} onClick={() => handleStoreClick(store)}>
+            <img
+              src={store.menuImageUrl || `/image/store/${store.storeId}.PNG`} // 이미지 URL이 없을 경우 기본 이미지 경로
+              alt={store.storeName} // alt 텍스트
+              className="menu-image"
+              onError={(e) => {
+                e.target.src = "/image/default-menu.png"; // 대체 이미지로 바로 설정
+              }}
+            />
+            <h2>{store.storeName}</h2>
             <div className="status">
-              <span className="danger">위험 {store.danger}</span>
-              <span className="warning">보통 {store.warning}</span>
+              <span className="danger">위험 {store.highRisk}</span>
+              <span className="warning">보통 {store.moderate}</span>
               <span className="safe">안전 {store.safe}</span>
             </div>
           </div>

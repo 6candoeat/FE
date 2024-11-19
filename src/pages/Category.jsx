@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Banner from "../components/banner/Banner";
 import Footer from "../components/footer/Footer";
 import AppContainer from "../components/AppContainer";
-import "../styles/menumain.scss";
+import "../styles/category.scss";
 
 import star from "../assets/image/006.png";
 import korea from "../assets/image/002.png";
