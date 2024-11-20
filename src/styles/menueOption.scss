@@ -38,7 +38,7 @@
   margin-bottom: 10px;
 
   h2 {
-    font-size: 18px;
+    font-size: 20px;
     margin: 0;
     color: #333;
   }
@@ -71,13 +71,14 @@
     flex-direction: column;
 
     label {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: bold;
       margin-bottom: 5px;
       color: #333;
     }
 
     .option-buttons {
+      margin-top: 10px;
       display: flex;
       gap: 25px;
       // justify-content: space-between;
@@ -102,7 +103,7 @@
 }
 
 .caution-text {
-  font-size: 13px;
+  font-size: 21px;
   color: #000000;
   text-align: center;
   margin-bottom: 10px;
@@ -139,4 +140,9 @@
     color: white;
     border: none;
   }
+}
+
+.option-buttons button.active {
+  background-color: #4096ff;
+  color: white;
 }

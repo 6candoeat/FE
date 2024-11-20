@@ -110,3 +110,9 @@
     }
   }
 }
+
+.store-item:hover {
+  transform: scale(1.05); /* 살짝 확대 */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
+  border: 1px solid #4096ff; /* 테두리 색상 변경 */
+}

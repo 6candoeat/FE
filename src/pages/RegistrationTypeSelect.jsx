@@ -26,7 +26,7 @@ function RegistrationTypeSelect() {
           <button className="option" onClick={handlePhotoClick}>
             <h2 className="option-title">사진 찍기</h2>
             <div className="icon camera-icon" />
-            <p className="option-description">약 봉투를 찍어서 질병 정보를 입력합니다.</p>
+            <p className="option-description">약 봉투를 찍어서 <br/> 질병 정보를 입력합니다.</p>
           </button>
           <button className="option" onClick={handleDirectInputClick}>
             <h2 className="option-title">직접 입력</h2>
