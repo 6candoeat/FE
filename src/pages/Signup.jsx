@@ -51,7 +51,7 @@ const Signup = () => {
       password: formData[0].inputs["비밀번호"] || "",
       username: formData[0].inputs["이름"] || "",
       gender: genderMapping[formData[1].selectedOption] || "",
-      age: formData[0].inputs["나이"] || "",
+      age: formData[1].inputs["나이"] || "",
       userDisease: null, // 초기값
       phoneNum: formData[0].inputs["전화번호"] || "",
       height: formData[1].inputs["키"] || "",
