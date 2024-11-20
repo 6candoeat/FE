@@ -67,6 +67,7 @@ const StarMenu = () => {
                     {item.riskLevel === "SAFE" ? "안전" : 
                     item.riskLevel === "MODERATE" ? "보통" : "위험"}
                   </span>
+                  <h3>{item.storeName}</h3>
                   <h2 className="menu-name">{item.menuName}</h2>
                   <p className="menu-price">가격: {item.price.toLocaleString()}원</p>
                 </div>
