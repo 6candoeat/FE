@@ -10,13 +10,13 @@ import Footer from "../components/footer/Footer";
 const getRiskLevelStyle = (riskLevel) => {
   switch (riskLevel) {
     case "HIGH_RISK":
-      return { color: "#ff4d4f", icon: "😟", label: "위험" };
+      return { color: "#ff4d4f", icon: "😟", label: "위험", buttonColor: "#ff4d4f"};
     case "MODERATE":
-      return { color: "#ffcc00", icon: "😐", label: "보통" };
+      return { color: "#ffcc00", icon: "😐", label: "보통", buttonColor: "#ffcc00"};
     case "SAFE":
-      return { color: "#28a745", icon: "😊", label: "안전" };
+      return { color: "#28a745", icon: "😊", label: "안전", buttonColor: "#28a745"};
     default:
-      return { color: "#666", icon: "❓", label: "알 수 없음" };
+      return { color: "#666", icon: "❓", label: "알 수 없음", buttonColor: "#666"};
   }
 };
 
@@ -95,7 +95,7 @@ const MenueDetail = () => {
   if (error) return <p>에러 발생: {error}</p>;
   if (!menuItem) return <p>메뉴를 찾을 수 없습니다.</p>;
 
-  const { color, icon, label } = getRiskLevelStyle(menuItem.riskLevel);
+  const { color, icon, label, buttonColor } = getRiskLevelStyle(menuItem.riskLevel);
 
   return (
     <AppContainer>
@@ -134,7 +134,7 @@ const MenueDetail = () => {
               당류: menuItem.sugar,
             })}
         </div>
-        <button className="order-button" onClick={handleOrderClick}>
+        <button className="order-button" style={{ backgroundColor: buttonColor }} onClick={handleOrderClick}>
           주문하기
         </button>
         <MenueOption isOpen={isOptionOpen} onClose={handleClose} />

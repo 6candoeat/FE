@@ -45,14 +45,13 @@
  height: 5px;
  background-color: #4096ff;
  margin-top: -50px;
- margin-bottom: px;
 }
 
 .disease-container .option-container {
   display: flex;
   flex-direction: column;
   gap: 25px; 
-  width: 90%;
+  width: 100%;
   margin-top: 20px;
   background-color: white; 
 }
@@ -68,6 +67,7 @@
   text-align: center;
   cursor: pointer; 
   height: 230px;
+  background-color: rgba(221, 236, 244, 0.779);
 }
 
 .disease-container .option-container .option .icon {
