@@ -56,7 +56,7 @@ const MenueOption = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        <p className="caution-text">* 정확한 정보는 의사 등 전문가와 상담 후 섭취하세요</p>
+        <p className="caution-text">* 정확한 정보는 의사 등 전문가와<br></br> 상담 후 섭취하세요</p>
 
         <div className="action-buttons">
           <button className="cart-button">장바구니 담기</button>
